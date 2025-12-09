@@ -40,3 +40,26 @@ function eligibleToVote(age){
 
 
 eligibleToVote(-1)
+
+
+/// Loops in Javascript
+
+
+// print hello world 5 times
+
+for(let i = 0; i<5; i++){
+   // console.log("Hello World")
+}
+
+// print all even numbers from array
+
+let numbers = [2,3,4,5,6,7,80]
+
+for(let i =0; i < numbers.length; i++){
+    if(numbers[i]%2==0){
+        console.log("Even" + numbers[i])
+    }else{
+        console.log("Odd - " + numbers[i])
+    }
+
+}
