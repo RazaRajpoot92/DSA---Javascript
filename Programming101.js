@@ -102,3 +102,26 @@ function findMinimum(arr){
 
 let smRes = findMinimum(arrMax)
 console.log(smRes)
+
+
+//find second largest number from array
+
+function findSecondLargest(arr){
+    let largestNum = -Infinity;
+    let secondLargestNum = null;
+
+    for(let i = 0; i< arr.length; i++){
+        if(arr[i]>largestNum){
+            secondLargestNum = largestNum;
+            largestNum = arr[i];
+        }
+    }
+
+    return secondLargestNum;
+}
+
+
+let numArr = [2,3,9,10,11,4,32,]
+
+let secLargestNum = findSecondLargest(numArr)
+console.log(secLargestNum);
