@@ -63,3 +63,42 @@ for(let i =0; i < numbers.length; i++){
     }
 
 }
+
+
+/// Find the largest in array
+
+let arrMax = [2,3,455,7,2,9,-1]
+
+
+function findLargest(arr){
+    let largest = -Infinity;
+    
+    for(let i =0; i< arr.length; i++){
+        if(arr[i]>largest){
+            largest = arr[i];
+        }
+    }
+
+    return largest;
+}
+
+let res = findLargest(arrMax)
+console.log(res)
+
+
+// find the minimum number in array
+
+function findMinimum(arr){
+    let smallest = Infinity;
+
+    for(let i = 0; i<arr.length; i++){
+        if(arr[i]<smallest){
+            smallest = arr[i];
+        }
+    }
+
+    return smallest;
+}
+
+let smRes = findMinimum(arrMax)
+console.log(smRes)
