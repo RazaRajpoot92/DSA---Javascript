@@ -145,7 +145,7 @@ for(let i =0; i< n; i++){
 
 // star pattern 2
 
-let x = 4
+let x = 6
 
 for(let i=0; i<x; i++){
     let row = "";
@@ -155,3 +155,67 @@ for(let i=0; i<x; i++){
 
     console.log(row)
 }
+
+let m = 5
+
+for(let i = 0; i<m; i++){
+    let numb = "";
+    for(let j=1; j<=i+1; j++){
+        numb = numb + " " + j;
+    }
+
+    console.log(numb)
+}
+
+
+
+for(let i = 0; i<m; i++){
+    let numb = "";
+    for(let j=0; j<=i; j++){
+        numb = numb + " " + (i+1);
+    }
+
+    console.log(numb)
+}
+
+
+
+
+
+
+let s = 5
+
+for(let i = 1; i<=s; i++){
+    let row = "";
+    for(let j=s; j>=1; j--){
+        if(j>i){
+            row = row + " ";
+        }else{
+            row = row + "*";
+        }
+    }
+    console.log(row)
+}
+
+
+let f = 8
+
+for(let i = 0; i<f; i++){
+    let row = "";
+    let n = true
+    for(let j=0; j<=i; j++){
+        if(n){
+         row = row + 1;
+        }else{
+            row = row + 0
+        }
+
+        n = !n
+    }
+
+    console.log(row)
+}
+
+
+
+
