@@ -125,3 +125,33 @@ let numArr = [2,3,9,10,11,4,32,]
 
 let secLargestNum = findSecondLargest(numArr)
 console.log(secLargestNum);
+
+
+/// Stars patterns
+
+// 1) star square
+
+
+let n = 4
+
+for(let i =0; i< n; i++){
+    let row = "";
+    for(let j = 0; j<n; j++){
+        row = row + "* ";
+    }
+    console.log(row)
+}
+
+
+// star pattern 2
+
+let x = 4
+
+for(let i=0; i<x; i++){
+    let row = "";
+    for(let j=0; j<=i; j++){
+        row = row + "* "
+    }
+
+    console.log(row)
+}
