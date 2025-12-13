@@ -263,3 +263,26 @@ var isPalindrome = function(x) {
 };
 
 console.log( isPalindrome(121)) 
+
+
+// reverse integer
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function(x) {
+    let xCopy = x;
+    let reverse = 0;
+    let positiveX = Math.abs(x)
+    while(positiveX>0){
+        let lastDigit = positiveX%10;
+        reverse = (10*reverse)+lastDigit;
+        positiveX = Math.floor(positiveX/10) // removing last digit
+    }
+
+    let limit = 2**31;
+    if(reverse < -limit || reverse>limit) return 0
+
+    return (xCopy<0)? -reverse:reverse
+
+};
