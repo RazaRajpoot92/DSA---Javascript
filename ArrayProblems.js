@@ -74,4 +74,48 @@ var reverseString = function(s) {
     return s;
 };
 
-console.log(reverseString(st))
+//console.log(reverseString(st))
+
+
+// Buy and sell slock
+
+
+let p = [7,1,5,3,6,4]
+
+let min = p[0];
+let maxProfit = 0;
+
+for(let i = 1; i<p.length; i++){
+    if(p[i]-min > maxProfit){
+        maxProfit = p[i]-min;
+    }
+    if(p[i]<min){
+        min = p[i];
+    }
+}
+
+//console.log(maxProfit)
+
+let n = [2,5,6]
+let n2 = [1,2,3]
+let nums = []
+
+let m = n.length;
+let c = n2.length;
+
+let p1 = 0;
+let p2 = 0;
+
+for(let i=0; i<m+c; i++){
+   
+    if(p2>=c || (n[p1]<n2[p2]&&p1<n.length)){
+        nums[i] = n[p1];
+        p1++;
+    }else{
+        nums[i] = n2[p2];
+        p2++;
+    }
+
+}
+
+console.log(nums)
