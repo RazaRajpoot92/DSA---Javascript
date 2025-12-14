@@ -119,3 +119,48 @@ for(let i=0; i<m+c; i++){
 }
 
 console.log(nums)
+
+
+// Move zero to the end
+
+var moveZeroes = function(nums) {
+    let digitIndex = 0;
+    for(let i = 0; i< nums.length; i++){
+        if(nums[i]!=0){
+            nums[digitIndex] = nums[i];
+            digitIndex++;
+        }
+    }
+
+    for(let i = digitIndex; i<nums.length; i++){
+        nums[i] = 0;
+    }
+};
+
+
+// find the missing number
+
+var missingNumber = function(nums) {
+    let n = nums.length;
+    let totalSum = n * (n+1) / 2
+    let sumOfNums = 0;
+
+    for(let i = 0; i<nums.length; i++){
+        sumOfNums += nums[i];
+    }
+
+    return totalSum - sumOfNums
+};
+
+let xNum = [3,1,5,4,1,5,3]
+
+let xor = 0;
+for(let i = 0; i<xNum.length; i++){
+
+    xor = xor ^ xNum[i]
+    console.log(xNum)
+    console.log(` xNum[i]=${xNum[i]}, Xor = ${xor}`)
+}
+
+console.log(xor);
+
