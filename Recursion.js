@@ -20,9 +20,30 @@ function print(n){
     print(n)
 }
 
-// sum of all numbers in array
+// sum of all n numbers 
 
-let nums = [1,2,4]
+function sumOfn(n){
+    if(n===0) return 0;
+    return n + sumOfn(n-1)
+}
 
+console.log(sumOfn(15))
+
+// find the n is power of 2
+
+function powerOfTwo(n){
+    console.log(n)
+    if(n==1) {
+        console.log("work?")
+        return true;
+    }
+
+    if(n<1) return false;
+
+    
+   return powerOfTwo(n/2)
+}
+let n = 4
+console.log(powerOfTwo(n))
 
 
