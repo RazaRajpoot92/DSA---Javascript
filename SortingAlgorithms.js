@@ -95,3 +95,42 @@ for(let i = 0; i<length; i++){
 }
 
 console.log(newArr)
+
+
+
+// merge sort
+
+var sortArray = function(nums) {
+
+    if(nums.length == 1) return nums;
+    let mid = Math.floor(nums.length/2);
+    let left = sortArray(nums.slice(0,mid));
+    let right = sortArray(nums.slice(mid));
+    return merge(left, right) // undefine
+    
+};
+
+function merge(left, right){
+    console.log('w')
+    console.log(left, right)
+    let result = [];
+    let m = left.length + right.length;
+    let i = 0;
+    let j = 0;
+
+    for(let k=0; k<m; k++){
+
+        if( j>=right.length || (i<left.length && left[i]<right[j])){
+            result[k] = left[i];
+            i++
+        }else{
+            result[k]=right[j];
+            j++
+        }
+    }
+    return result
+}
+
+let arrr = [5,2,1]
+
+console.log(sortArray(arrr))
