@@ -123,9 +123,80 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
 
 let obj = new MyLinkedList();
 
-console.log(obj)
+//console.log(obj)
 obj.addAtHead(1)
 obj.addAtTail(3)
 obj.addAtIndex(1,2)
-console.log(obj)
-console.log(obj.get(1))
+//console.log(obj)
+//console.log(obj.get(1))
+
+
+// check if linked-list has cycle
+
+// better approch is slow and fast pointer or
+// Floyd's cycle finding algorithm
+// if two runner are running in circular path and one is slow and one is fast
+// then it definately meet at same point in cycle.
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function(head) {
+
+   if(!head) return false;
+   
+   let slow = head;
+   let fast = head.next;
+
+   while(slow!==fast){
+    if(fast==null || fast.next===null) return false;
+    slow = slow.next;
+    fast = fast.next.next;
+   }
+
+   return true;
+   
+};
+
+
+// check array is palidrome
+
+let arr = [1,2,2,1]
+
+function isPalidrome(arr){
+
+    let s = 0;
+    let e = arr.length - 1;
+
+    while(s!==e && s<e){
+        console.log(s, e)
+        if(arr[s]!==arr[e]){
+            return false;
+        }
+        s++;
+        e--;
+    }
+
+    return true
+}
+
+//console.log(isPalidrome(arr))
+
+
+let testSet = new Set()
+
+testSet.add(1)
+testSet.add(2)
+testSet.add(3)
+testSet.add(4)
+
+console.log(testSet)
