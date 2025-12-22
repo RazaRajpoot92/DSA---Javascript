@@ -233,3 +233,51 @@ var addTwoNumbers = function(l1, l2) {
 
     return res.next;
 };
+
+
+// Merge two sorted list
+
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(list1, list2) {
+    resultNode = new ListNode();
+    resultHead = resultNode;
+    l1 = list1;
+    l2 = list2;
+
+    while(l1 || l2){
+        if(l1 && l2){
+            if(l1.val<l2.val){
+                resultNode.next = l1;
+                resultNode = l1
+                l1 = l1.next;
+            }else{
+                resultNode.next = l2
+                resultNode = l2
+                l2 = l2.next
+            }
+        } else if(l1 === null){
+            resultNode.next = l2;
+            resultNode = l2
+            l2 = l2.next
+        }else{
+            resultNode.next = l1
+            resultNode = l1;
+            l1 = l1.next;
+        }
+    }
+
+    return resultHead.next;
+};
