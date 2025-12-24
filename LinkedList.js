@@ -379,3 +379,28 @@ var swapPairs = function(head) {
     return r
     
 };
+
+
+let test = "LLLLRRRR";
+let r = 0;
+let l = 0;
+let s = 0;
+let res = []
+
+for(let i = 0; i<test.length; i++){
+    if(test[i]=="R"){
+        r++;
+    }
+    if(test[i]=="L"){
+        l++
+    }
+
+    if(r==l){
+        res.push(test.slice(s,i+1))
+        s=i+1
+        r=0;
+        l=0;
+    }
+}
+
+console.log(res)
