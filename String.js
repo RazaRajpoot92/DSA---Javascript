@@ -42,3 +42,19 @@ var isPalindrome = function(s) {
 
     return rev === filteredString
 };
+
+
+
+/**
+ * @param {string} num
+ * @return {string}
+ */
+var largestOddNumber = function(num) {
+    for(let i = num.length; i>=0; i--){
+        if(parseInt(num[i-1])%2!==0){
+            return num.slice(0,i)
+        }
+    }
+
+    return ""
+};
