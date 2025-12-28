@@ -112,6 +112,57 @@ for(let i = 0; i<keys.length; i++){
     
 }
 
-console.log(map)
-console.log(maxVowel)
-console.log(maxCons)
+// console.log(map)
+// console.log(maxVowel)
+// console.log(maxCons)
+
+
+
+let string = 'abcde'
+let length = string.length
+console.log(string.length/2)
+
+for(let i = 0; i<string.length/2; i++){
+    
+    let temp = string[i]
+    string[i]=string[length-i-1]
+    string[length-i-1] = temp;
+}
+
+console.log(string)
+
+string[2] = "s"
+
+console.log(string)
+
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = function(s, t) {
+    if(s.length !== t.length) return false
+
+    let map = {}
+    for(let i = 0; i< s.length; i++){
+        if(!map[s[i]]){
+            map[s[i]] = 1;
+        }else{
+            map[s[i]]++
+        }
+    }
+
+    for(let i = 0; i< t.length; i++){
+        if(!map[t[i]] || map[t[i]]<0){
+            return false
+        }else{
+            map[t[i]]--
+        }
+    }
+
+    return true;
+};
+
+
+
