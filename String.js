@@ -77,3 +77,41 @@ var longestCommonPrefix = function(strs) {
    }
    return strs[0]
 };
+
+
+
+
+let s = "success";
+let map = {}
+
+
+for(let i = 0; i< s.length ; i++){
+    if(map[s[i]]){
+        map[s[i]]++
+        
+    }else{
+        map[s[i]] = 1;
+    }
+}
+
+let maxVowel = 0;
+let maxCons = 0;
+let keys = Object.keys(map)
+console.log(Object.keys(map))
+
+for(let i = 0; i<keys.length; i++){
+    if('aeiou'.includes(keys[i])){
+        if(maxVowel < map[keys[i]]){
+            maxVowel = map[keys[i]]
+        }
+    }else{
+        if(maxCons < map[keys[i]]){
+            maxCons = map[keys[i]]
+        }
+    }
+    
+}
+
+console.log(map)
+console.log(maxVowel)
+console.log(maxCons)
