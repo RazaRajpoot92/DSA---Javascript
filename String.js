@@ -166,3 +166,24 @@ var isAnagram = function(s, t) {
 
 
 
+var groupAnagrams = function(strs) {
+    let map = {}
+    for(let i = 0; i<strs.length; i++){
+        let curr = strs[i].split("").sort().join("");
+
+        if(!map[curr]){
+            map[curr] = [strs[i]]
+        }else{
+            map[curr].push(strs[i]);
+        }
+    }
+
+    return Object.values(map)
+};
+
+strs = ["eat","tea","tan","ate","nat","bat"]
+
+let result = groupAnagrams(strs)
+
+
+console.log(result)
