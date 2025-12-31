@@ -43,13 +43,13 @@
     * var param_4 = obj.empty()
     */
 
-let mystack = new MyStack();
-mystack.push(2)
-mystack.push(2)
-console.log(mystack.pop())
-console.log(mystack.pop())
-console.log(mystack.top())
-console.log(mystack.empty())
+// let mystack = new MyStack();
+// mystack.push(2)
+// mystack.push(2)
+// console.log(mystack.pop())
+// console.log(mystack.pop())
+// console.log(mystack.top())
+// console.log(mystack.empty())
 
 
 
@@ -170,4 +170,34 @@ MyQueue.prototype.empty = function() {
  * var param_3 = obj.peek()
  * var param_4 = obj.empty()
  */
+
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    let stack = [];
+    let map = {
+        "(":")",
+        "{":"}",
+        "[":"]"
+    }
+
+    for(let i = 0; i<s.length; i++){
+        if(map[s[i]]){
+            stack.push(s[i])
+        }else{
+            let top = stack.pop()
+           if( !top || map[top] !== s[i] ){
+            return false
+           }
+        }
+    }
+    
+    return stack.length == 0
+};
+
+// let s = "([]{}){"
+// console.log(isValid(s))
 
