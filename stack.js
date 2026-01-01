@@ -201,3 +201,77 @@ var isValid = function(s) {
 // let s = "([]{}){"
 // console.log(isValid(s))
 
+
+var MinStack = function() {
+    this.stack = []
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+MinStack.prototype.push = function(val) {
+    let ele = this.stack[this.stack.length-1]
+  
+    if(!ele){
+        
+        let element = {
+            val: val,
+            min: val
+        }
+        this.stack.push(element)
+
+    }else{
+        let min = val
+        let element = {}
+
+        if(min<ele.min){
+            element.val = val,
+            element.min = min
+        }else{
+            element.val = val,
+            element.min = ele.min
+        }
+
+        this.stack.push(element)
+    }
+    
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+   let element = this.stack.pop()
+   return element.val;
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+   let element = this.stack[this.stack.length - 1];
+    return element && element.val;
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.getMin = function() {
+    let  element = this.stack[this.stack.length - 1]
+    
+    return element && element.min
+};
+
+
+var obj = new MinStack()
+
+obj.push(-2)
+obj.push(0)
+obj.push(-3)
+console.log(obj)
+console.log(obj.getMin())
+obj.pop()
+console.log(obj.top())
+console.log(obj.getMin())
+ 
