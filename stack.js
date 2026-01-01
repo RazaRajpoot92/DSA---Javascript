@@ -274,4 +274,27 @@ console.log(obj.getMin())
 obj.pop()
 console.log(obj.top())
 console.log(obj.getMin())
- 
+
+
+//
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var removeOuterParentheses = function(s) {
+    let level = 0
+    let result = ""
+    for(let i=0; i<s.length; i++){
+        if(s[i]=="("){
+            level++
+            result += level>1?s[i]:""
+            
+        }else{
+            result += level>1?s[i]:""
+            level--
+        }       
+    }
+
+  return  result
+};
