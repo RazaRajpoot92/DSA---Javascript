@@ -266,14 +266,14 @@ MinStack.prototype.getMin = function() {
 
 var obj = new MinStack()
 
-obj.push(-2)
-obj.push(0)
-obj.push(-3)
-console.log(obj)
-console.log(obj.getMin())
-obj.pop()
-console.log(obj.top())
-console.log(obj.getMin())
+// obj.push(-2)
+// obj.push(0)
+// obj.push(-3)
+// console.log(obj)
+// console.log(obj.getMin())
+// obj.pop()
+// console.log(obj.top())
+// console.log(obj.getMin())
 
 
 //
@@ -298,3 +298,28 @@ var removeOuterParentheses = function(s) {
 
   return  result
 };
+
+let digits = [1,9]
+
+let n = digits.length - 1
+let carry = 0;
+let sum = 0;
+
+for(let i = n; i>=0; i--){
+    sum = digits[i] + 1
+
+    if(sum>9){
+        carry = 1;
+        digits[i] = 0;
+    }else{ 
+        digits[i] = sum;
+        carry = 0;
+
+    }
+}
+
+if(carry==1){
+    digits.unshift(1)
+}
+
+console.log(digits)
