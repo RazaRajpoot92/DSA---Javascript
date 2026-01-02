@@ -322,7 +322,7 @@ if(carry==1){
     digits.unshift(1)
 }
 
-console.log(digits)
+
 
 
 
@@ -354,7 +354,7 @@ let s = new Set()
 let size = 0;
 
 for(let i = 0; i<num.length; i++){
-    console.log(s.add(num[i]))
+    
     if(size==s.size){
         return num[i]
     }else{
@@ -364,3 +364,29 @@ for(let i = 0; i<num.length; i++){
 }
 
 //console.log(s)
+
+/**
+ * @param {string[]} tokens
+ * @return {number}
+ */
+var evalRPN = function(tokens) {
+    let stack = [];
+    let map = {
+        "+":(a,b)=>a+b,
+        "-":(a,b)=> b-a,
+        "/":(a,b)=> Math.trunc(b/a),
+        "*":(a,b)=> a * b,
+        }
+    for(let i = 0; i< tokens.length; i++){
+        if(!map[tokens[i]]){
+            stack.push(Number(tokens[i]))
+        }else{
+            let num1 = stack.pop();
+            let num2 = stack.pop();
+            let result = map[tokens[i]](num1,num2)
+            stack.push(result)
+        }
+    }
+
+    return stack.pop()
+};
