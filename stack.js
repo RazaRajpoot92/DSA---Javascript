@@ -323,3 +323,44 @@ if(carry==1){
 }
 
 console.log(digits)
+
+
+
+
+
+//
+
+
+var repeatedNTimes = function(nums) {
+    let n = nums.length/2
+    let map = {}
+    let curr = nums[0]
+
+    for(let i =1; i<nums.length; i++){
+        if(curr == nums[i]){
+            return curr
+        }else{
+            curr = nums[i]
+        }
+    }
+    
+};
+
+let num = [5,1,5,2,5,3,5,4]
+
+console.log(repeatedNTimes(num))
+
+let s = new Set()
+let size = 0;
+
+for(let i = 0; i<num.length; i++){
+    console.log(s.add(num[i]))
+    if(size==s.size){
+        return num[i]
+    }else{
+        size = s.size;
+    }
+    
+}
+
+//console.log(s)
