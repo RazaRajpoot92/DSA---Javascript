@@ -390,3 +390,46 @@ var evalRPN = function(tokens) {
 
     return stack.pop()
 };
+
+
+
+function findNextGreater(arr){
+ 
+    let n = arr.length - 1;
+    let stack = [arr[n]];
+    let map = {}
+    map[arr[n]] = -1
+    
+    for(let i = n-1; i>=0; i--){
+        let top = stack[stack.length - 1]
+        if(arr[i]<top){
+            map[arr[i]] = top;
+            
+        }else{
+            for(let j = 0; j<stack.length; j++){
+                let top = stack[stack.length - 1]
+                
+                if(arr[i]<top){
+                    map[arr[i]] = top;
+                    stack.push(arr[i])
+                    break;
+                }else{
+                    if(stack.length === 0){
+                        map[arr[i]] = -1;
+                    }else{
+                        stack.pop()
+                    }
+                    
+                }
+            }
+            
+
+        }
+    }
+
+    return map;
+}
+
+let arr = [17,5,0,3,4,9,2,6,8]
+
+console.log(findNextGreater(arr))

@@ -71,4 +71,19 @@ function showNumbers(limit){
     }
 }
 
-showNumbers(5)
+//showNumbers(5)
+
+function countTruthy(arr){
+    let count = 0;
+    for(let element of arr){
+        if(element){
+            count++
+        }
+    }
+
+    console.log(count)
+}
+
+let arr = ["", "k", undefined, true, NaN]
+
+countTruthy(arr)
