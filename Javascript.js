@@ -86,4 +86,24 @@ function countTruthy(arr){
 
 let arr = ["", "k", undefined, true, NaN]
 
-countTruthy(arr)
+
+
+
+function showProperties(obj){
+    for(let key in obj){
+        if(typeof obj[key] === 'string'){
+            console.log(key, obj[key])
+        }
+        
+    }
+}
+
+let obj = {
+    movie: "a",
+    release: 2026,
+    type: "Action"
+}
+
+showProperties(obj)
+
+

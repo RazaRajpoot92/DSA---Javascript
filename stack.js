@@ -433,3 +433,35 @@ function findNextGreater(arr){
 let arr = [17,5,0,3,4,9,2,6,8]
 
 console.log(findNextGreater(arr))
+
+
+/**
+ * @param {number[]} temperatures
+ * @return {number[]}
+ */
+
+var dailyTemperatures = function(temperatures) {
+    let stack = []
+    let n = temperatures.length - 1
+    let result = new Array(n+1).fill(0)
+    stack.push(n)
+    
+    for(let i = n-1; i>=0; i--){
+        while(stack.length){
+            let top = stack[stack.length-1]
+            if(temperatures[i]<temperatures[top]){
+                
+                let dayCount = top - i
+                result[i] = dayCount
+                break;
+            }else{
+                stack.pop()
+            }
+        }
+
+        stack.push(i)
+        
+    }
+    
+    return result;
+};
