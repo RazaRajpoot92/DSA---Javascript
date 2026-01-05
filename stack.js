@@ -465,3 +465,48 @@ var dailyTemperatures = function(temperatures) {
     
     return result;
 };
+
+function merge(arr1,arr2){
+let result = []
+
+let p1 = 0;
+let p2 = 0;
+
+for(let i = 0; i<arr1.length + arr2.length; i++){
+    if( p2>=arr2.length ||  (arr1[p1]>arr2[p2] && p1<arr1.length)){
+        result.push(arr1[p1]);
+        p1++
+    }else{
+        result.push(arr2[p2])
+        p2++
+    }
+}
+
+return result;
+}
+let k1 = [3]
+let k2 = [1,2]
+console.log(merge(k1,k2))
+
+
+function mergeSort(nums){
+    if(nums.length<=1) return nums
+    
+    let mid = nums.length/2
+    let left = mergeSort(nums.slice(0,mid));
+    let right = mergeSort(nums.slice(mid))
+    
+    return merge(left,right)
+}
+
+
+let n1 = [1,2,3]
+let nums =String(n1)
+
+//console.log(mergeSort(nums))
+
+
+
+
+
+
