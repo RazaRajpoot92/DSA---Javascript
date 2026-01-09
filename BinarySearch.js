@@ -121,3 +121,28 @@ var findMin = function(arr) {
         }
     }
 };
+
+//
+
+
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var peakIndexInMountainArray = function(arr) {
+    let l = 0;
+    let r = arr.length - 1;
+
+    while(l<r){
+        let m = l + Math.ceil((r-l)/2)
+
+        if(arr[m-1]>arr[m]){
+            r = m-1
+        }else{
+            l=m
+        }
+    }
+
+    return l
+};
