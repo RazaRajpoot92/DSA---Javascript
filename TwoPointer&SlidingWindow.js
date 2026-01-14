@@ -68,3 +68,42 @@ var isSubsequence = function(s, t) {
 
     return false
 };
+
+
+// cann't work on any substring problem
+
+
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+   
+    let i = 0;
+    let j = 0;
+
+    while(i<haystack.length){
+        
+        if(haystack[i]==needle[j]){
+            i++
+            j++
+        }else{
+            if(j>0){
+                j=0;
+            }else{
+                i++
+            }
+        }
+        
+        if(j==needle.length) {
+                console.log(i-j)
+                return i-j
+            }
+    }
+
+    return -1
+
+};
+
+///
