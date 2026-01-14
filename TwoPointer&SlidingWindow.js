@@ -132,3 +132,28 @@ var getIntersectionNode = function(headA, headB) {
 
     return pA
 };
+
+// container with more water
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(arr) {
+    let maxWater = 0;
+    let i = 0;
+    let j = arr.length - 1
+    while(i<j){
+        let currWater = Math.min(arr[i],arr[j]) * (j-i)
+        maxWater = Math.max(currWater,maxWater)
+
+        if(arr[i]<arr[j]){
+            i++
+        }else{
+            j--
+        }
+
+    }
+
+    return maxWater
+};
