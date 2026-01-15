@@ -157,3 +157,31 @@ var maxArea = function(arr) {
 
     return maxWater
 };
+
+
+// longest substring
+
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    let p1 = 0;
+    let p2 = 0;
+    let map = new Map();
+    let max = 0;
+
+    while(p2<s.length){
+        if(map.has(s[p2]) && map.get(s[p2])>= p1 ){
+            p1 = map.get(s[p2]) + 1
+        }
+
+        let currMax = p2 - p1 + 1
+        max = Math.max(currMax, max);
+        map.set(s[p2], p2)
+        p2++
+    }
+
+    return max
+};
