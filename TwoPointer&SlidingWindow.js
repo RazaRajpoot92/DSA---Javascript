@@ -185,3 +185,45 @@ var lengthOfLongestSubstring = function(s) {
 
     return max
 };
+
+
+//
+
+var characterReplacement = function(s, k) {
+    let i = 0;
+    let j = 0;
+    let maxLen = 0;
+    let map = {}
+    map[s[0]] = 1
+    
+    
+    while(j<s.length){
+       
+        if(isValid(map,k)){
+            maxLen = Math.max(maxLen, j-i+1)
+            j++
+            (map[s[j]])?map[s[j]]+=1:map[s[j]] = 1
+        }else{
+            map[s[i]]--
+            i++
+        }
+
+    }
+
+    return maxLen
+};
+
+var isValid = function(map,k){
+    let totalCount = 0;
+    let max = 0;
+
+    for(let i = 0; i<26;i++){
+        let char = String.fromCharCode(i+65)
+        if(map[char]){
+            totalCount += map[char]
+            max = Math.max(max, map[char])
+        }
+    }
+
+    return totalCount - max <= k
+}
