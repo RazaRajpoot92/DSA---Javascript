@@ -29,7 +29,6 @@ var preorderTraversal = function(root) {
 
 
 // Iterative approach
-
 var preorderTraversal = function(root) {
     if(!root) return []
 
@@ -47,3 +46,55 @@ var preorderTraversal = function(root) {
 
     return result;
 };
+// Inorder traversal
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+
+ // Iterative approach
+var inorderTraversal = function(root) {
+    let stack = []
+    let result = []
+    let curr = root
+
+    while(curr || stack.length){
+        while(curr){
+            stack.push(curr)
+            curr = curr.left;
+        }
+        curr = stack.pop()
+        result.push(curr.val)
+        curr = curr.right
+    }
+
+    return result;
+};
+
+
+// Recursive Approach
+
+// var inorderTraversal = function(root) {
+//     let result = []
+
+//     function traversal(curr){
+//         if(!curr) return
+//         traversal(curr.left)
+//         result.push(curr.val)
+//         traversal(curr.right)
+//     }
+
+//     traversal(root)
+
+//     return result
+// };
