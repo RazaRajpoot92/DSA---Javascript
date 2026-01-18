@@ -26,3 +26,24 @@ var preorderTraversal = function(root) {
 
     return result
 };
+
+
+// Iterative approach
+
+var preorderTraversal = function(root) {
+    if(!root) return []
+
+    let stack = [root]
+    let result = []
+
+    while(stack.length){
+        let curr = stack.pop()
+        
+        result.push(curr.val)
+
+        curr.right && stack.push(curr.right)
+        curr.left && stack.push(curr.left)
+    }
+
+    return result;
+};
