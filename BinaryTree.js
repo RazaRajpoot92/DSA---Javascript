@@ -98,3 +98,34 @@ var inorderTraversal = function(root) {
 
 //     return result
 // };
+
+
+
+
+ // Iterative approach using one stack
+var postorderTraversal = function(root) {
+    let stack = []
+    let result = []
+    let curr = root
+    let lastVisited = null;
+
+    while(curr || stack.length){
+
+        while(curr){
+            stack.push(curr)
+            curr = curr.left;
+        }
+
+        let peak = stack[stack.length-1]
+
+        if(peak.right && peak.right != lastVisited){
+            curr = peak.right
+        }else{
+            result.push(peak.val);
+            lastVisited = stack.pop()
+        }
+    }
+
+    return result;
+    
+};
