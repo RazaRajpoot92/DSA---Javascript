@@ -167,3 +167,82 @@ var levelOrder = function(root) {
 
     return result;
 };
+
+
+// Daily quest
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var minBitwiseArray = function(nums) {
+    let result = []
+
+    for(let i = 0; i<nums.length; i++){
+
+        let found = false
+        for(let x = 0; x<nums[i]; x++){
+            if((x | x+1) == nums[i]){
+                result.push(x)
+                found = true;
+                break;
+            }
+        }
+
+        if(found===false){
+            result.push(-1)
+        }
+    }
+
+    return result
+};
+
+
+// maximum depth of binary tree
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+ // top to bottom approach
+var maxDepth = function(root) {
+    if(!root) return 0;
+
+    let leftTree = maxDepth(root.left);
+    let rightTree = maxDepth(root.right);
+
+    return 1 + Math.max(leftTree,rightTree)
+};
+
+
+
+
+// top to bottom approach
+// var maxDepth = function(root) {
+
+//     if(!root) return 0;
+    
+//     let maxDepth = 0;
+//     function traversal(curr, depth){
+
+//         if(!curr) return;
+
+//         maxDepth = Math.max(maxDepth, depth)
+
+//         traversal(curr.left, depth+1)
+//         traversal(curr.right, depth+1)
+
+//     }
+
+//     traversal(root,1)
+
+//     return maxDepth
+// };
