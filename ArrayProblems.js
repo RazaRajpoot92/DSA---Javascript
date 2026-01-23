@@ -164,3 +164,46 @@ for(let i = 0; i<xNum.length; i++){
 
 console.log(xor);
 
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ // Boyer Moore algorithm
+var majorityElement = function(nums) {
+    let count = 1;
+    let maj = nums[0]
+
+    for(let i =1; i<nums.length; i++){
+        if(count===0){
+           maj = nums[i]
+           count = 1
+        }else if(nums[i] == maj){
+            count++
+        }else{
+            count--
+        }
+    }
+
+    return maj
+};
+
+
+// BruteForce approach
+
+// var majorityElement = function(nums) {
+//     let n = Math.ceil(nums.length/2)
+//     let map = {}
+//     for(let i = 0; i<nums.length; i++){
+//         if(!map[nums[i]]){
+//             map[nums[i]] = 1
+//         }else{
+//             map[nums[i]]++
+//         }
+
+//         if(map[nums[i]]>=n){
+//             return nums[i]
+//         }
+//     }
+// };
