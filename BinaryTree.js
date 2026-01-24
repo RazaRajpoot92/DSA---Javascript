@@ -423,4 +423,26 @@ var lowestCommonAncestor = function(root, p, q) {
 };
 
 //
+ // level order traversal with recursion (classic)
+var levelOrder = function(root) {
+    if(!root) return []
+    let result = []
 
+    function traverse(queue){
+        if(queue.length===0) return;
+       // if(!result[level]) result[level] = []
+        let nextQueue = []
+        for(let node of queue){
+            result.push(node.val)
+            node.left && nextQueue.push(node.left)
+            node.right && nextQueue.push(node.right)
+        }
+        
+        traverse(nextQueue)
+    }
+
+    traverse([root])
+
+    console.log(result)
+    return [[]]
+};
