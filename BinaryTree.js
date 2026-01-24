@@ -446,3 +446,42 @@ var levelOrder = function(root) {
     console.log(result)
     return [[]]
 };
+
+
+//
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function(root) {
+    if(!root) return []
+    let result = []
+    let q = [root]
+    function traverse(que){
+
+       if(que.length==0) return;
+
+       let nextQueue = []
+
+       for(let i = 0; i<que.length; i++){
+            let node = que[i]
+            i==0 && result.push(node.val)
+
+            node.right && nextQueue.push(node.right)
+            node.left && nextQueue.push(node.left)       
+       }
+
+       traverse(nextQueue) 
+    }
+    traverse(q)
+    return result
+};
