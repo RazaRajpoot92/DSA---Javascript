@@ -379,5 +379,48 @@ var zigzagLevelOrder = function(root) {
 
 
 
+//
 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+    let LCA = null;
+
+    function traversal(curr){
+        let count = 0;
+        if(!curr) return 0;
+
+        let leftTree = traversal(curr.left);
+        let rightTree = traversal(curr.right);
+
+        if(curr.val == q.val || curr.val == p.val){
+            ++count;
+        }
+
+        count = count + leftTree + rightTree;
+
+        if(count == 2 && !LCA){
+            LCA = curr
+        }
+
+        return count;
+
+    }
+    traversal(root)
+
+    return LCA
+};
+
+//
 
