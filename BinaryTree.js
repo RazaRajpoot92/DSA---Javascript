@@ -520,3 +520,38 @@ var connect = function(root) {
 
     return root;
 };
+
+//
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxPathSum = function(root) {
+    let maxSum = -Infinity;
+
+    function traverse(curr){
+
+        if(!curr) return 0;
+        let leftSum = Math.max(0, traverse(curr.left))
+        let rightSum = Math.max(0, traverse(curr.right))
+
+        let currMax = curr.val + leftSum + rightSum
+        maxSum = Math.max(currMax, maxSum)
+
+        return curr.val + Math.max(leftSum, rightSum)
+    }
+
+    traverse(root)
+
+    return maxSum;
+    
+};
