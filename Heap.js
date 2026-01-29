@@ -99,3 +99,51 @@ heap.insert(10)
 heap.insert(11)
 
 console.log(heap.heap)
+
+//
+
+
+let arr = [2,3,4,5,1,8]
+
+
+function heapSort(arr){
+    let n = arr.length
+    // create Maxheap of array
+    for(let i = Math.floor(n/2) - 1; i>=0; i--){
+        heapifyDown(arr, i, n)
+    }
+    
+    console.log(arr)
+    
+    for(let i = n-1; i>0; i--){
+        [arr[0], arr[i]] = [arr[i], arr[0]]
+        heapifyDown(arr, 0, i)
+    }
+    
+    return arr;
+}
+
+function heapifyDown(arr,i,n){
+    
+    let left = (2 * i) + 1;
+    let right = (2 * i) + 2;
+    let max = i;
+    
+    if(left<n && arr[left]>arr[max]){
+        max = left
+    }
+    if(right<n && arr[right]>arr[max]){
+        max = right
+    }
+    
+    if(max != i){
+        [ arr[i], arr[max] ] = [ arr[max], arr[i] ] 
+        heapifyDown(arr, max, n)
+    }
+    
+}
+
+
+const ans = heapSort(arr)
+
+console.log(ans)
