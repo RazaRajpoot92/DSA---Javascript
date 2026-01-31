@@ -147,3 +147,41 @@ function heapifyDown(arr,i,n){
 const ans = heapSort(arr)
 
 console.log(ans)
+
+
+//
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function(matrix, k) {
+    // I need to push first colomn of matrix in heap (min priority queue)
+    let heap = new MinPriorityQueue(x=>x.val)
+    let n = matrix[0].length
+
+    for(let i =0; i< Math.min(n,k); i++){
+        let item  = {
+            val:matrix[i][0],
+            row:i,
+            col:0
+        }
+
+        heap.enqueue(item)
+    }
+
+    // I have to push item from heap for k-1 time
+
+    for(let i =0; i<k-1; i++){
+        let {val, row, col} = heap.dequeue()
+
+        if(col+1 < n){
+            let newItem = {val:matrix[row][col+1], row:row, col:col+1 }
+            heap.enqueue(newItem)
+        }
+    }
+
+    return heap.dequeue().val
+
+};
