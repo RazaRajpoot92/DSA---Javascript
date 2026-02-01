@@ -48,3 +48,62 @@ var combine = function(n, k) {
 
   return result;
 };
+
+// Permutation
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function(nums) {
+    let n = nums.length;
+    let result = []
+
+    function backTrack(path){
+        if(path.length === n){
+            result.push([...path])
+            return
+        }
+
+        for(let i = 0; i<nums.length; i++){
+         
+            if(!path.includes(nums[i])){
+                path.push(nums[i])
+                backTrack(path)
+                path.pop()
+            }
+           
+            
+        }
+    }
+    backTrack([])
+
+    return result;
+};
+
+//
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsetsWithDup = function(nums) {
+    let result = []
+    nums.sort((a,b)=>a-b)
+
+    function backtrack(path, start){
+
+        result.push([...path])
+
+        for(let i  = start; i<nums.length; i++){
+            if( i > start && nums[i-1]===nums[i]) continue;
+
+            path.push(nums[i])
+            backtrack(path, i+1)
+            path.pop()
+        }
+    }
+    backtrack([],0)
+
+    return result;
+};
