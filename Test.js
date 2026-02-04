@@ -1,11 +1,14 @@
+function write(s){
 
-function a(){
-
-    function b(){
-        console.log(c)
+    for(var i = 0; i<s.length; i++){
+        function close(i){
+            setTimeout(() => {
+            process.stdout.write(s[i])
+         }, i * 150);
+        }
+        close(i)
     }
-    b()
-}
 
-var c = 1;
-a()
+}
+let s = "hello world, how I can help you?"
+write(s)

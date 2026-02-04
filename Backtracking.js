@@ -254,3 +254,125 @@ var exist = function(board, word) {
 
     return result;
 };
+
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+
+ // approach 2
+var solveNQueens = function(n) {
+    
+    let result = []
+
+    let board = [...Array(n)].map(()=>Array(n).fill("."))
+
+    function backtrack(board, row, setCol, setDiag, setAntiDiag){
+
+        if(row===n){
+            result.push(transform(board))
+        }
+        
+        for(let col = 0; col < n; col++){
+
+            if(setCol.has(col) || setDiag.has(row-col)|| setAntiDiag.has(row+col)){
+                continue;
+            }
+
+            board[row][col] = "Q"
+            setCol.add(col)
+            setDiag.add(row-col)
+            setAntiDiag.add(row+col)
+            
+            backtrack(board, row+1, setCol, setDiag, setAntiDiag)
+
+            board[row][col] = "."
+            setCol.delete(col)
+            setDiag.delete(row-col)
+            setAntiDiag.delete(row+col)
+
+        }
+    }
+
+    backtrack(board, 0, new Set(), new Set(), new Set())
+
+    return result;
+};
+
+function transform(board){
+    let newBoard = []
+    for(let i = 0; i<board.length; i++){
+        
+        newBoard.push(board[i].join(""))
+    }
+
+    return newBoard
+}
+
+
+
+
+
+/// Approach #1
+// var solveNQueens = function(n) {
+
+//     let board = [...Array(n)].map(()=>Array(n).fill("."))
+
+//     let result = []
+    
+//     function backtrack(board, row){
+       
+//         if(row>=n){
+//           //  console.log(board)
+//             let configBoard = []
+
+//             for(let i = 0; i<board.length; i++){
+//                 configBoard.push( [...board[i]].join("") )
+//             }
+//             result.push(configBoard)
+          
+//             return
+//         }
+
+//         for(let col = 0; col<n; col++){
+            
+//             if(isValid(board, row, col,n)){
+
+//                 board[row][col] = "Q"
+
+//                 backtrack(board, row+1)
+                
+//                 board[row][col] = "."
+
+//             }
+//         }
+//     }
+
+//     backtrack(board, 0)
+
+//     return result
+// };
+
+// function isValid(board,row,col,n){
+//     //upward attack
+//     for(let i = row-1; i>=0; i--){
+//         if(board[i][col] === "Q"){
+//             return false
+//         }
+//     }
+//     //right diagonal
+//     for(let i = row-1, j = col+1; i>=0 && j<n; i--, j++ ){
+//         if(board[i][j]=== "Q"){
+//             return false
+//         }
+//     }
+// left diagonal
+//     for(let i = row-1, j = col-1; i>=0 && j>=0; i--, j--){
+//         if(board[i][j]==="Q"){
+//             return false
+//         }
+//     }
+
+//     return true;
+
+// }
