@@ -162,3 +162,36 @@ var partitionLabels = function (s) {
 
 //     return final
 // };
+
+
+/**
+ * @param {character[]} tasks
+ * @param {number} n
+ * @return {number}
+ */
+var leastInterval = function(arr, n) {
+
+    let charArray = new Array(26).fill(0)
+    let maxFreq = 0
+    
+    for(let i = 0; i<arr.length; i++){
+
+        let curr = arr[i].charCodeAt() - 65
+
+        charArray[curr]++
+
+        maxFreq = Math.max(maxFreq, charArray[curr])
+    }
+    
+    let maxFreqCount = 0;
+    for(let i = 0; i<26; i++){
+
+        if(charArray[i] === maxFreq){
+            maxFreqCount++
+        }
+
+    }
+    
+    let cycles = ((n+1) * (maxFreq - 1)) + maxFreqCount
+    return Math.max(cycles, arr.length)
+};
