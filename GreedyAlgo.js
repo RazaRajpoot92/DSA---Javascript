@@ -195,3 +195,32 @@ var leastInterval = function(arr, n) {
     let cycles = ((n+1) * (maxFreq - 1)) + maxFreqCount
     return Math.max(cycles, arr.length)
 };
+
+//
+
+/**
+ * @param {number[][]} trips
+ * @param {number} capacity
+ * @return {boolean}
+ */
+var carPooling = function(trips, capacity) {
+    let loc = new Array(1001).fill(0)
+
+    for(let i = 0; i < trips.length; i++){
+       let [numPassengers, from, to] = trips[i]
+       loc[from] += numPassengers
+       loc[to] -= numPassengers
+    }
+    let usedCapacity = 0;
+
+    for(let i = 0; i<1001; i++){
+
+        usedCapacity += loc[i]
+
+        if(usedCapacity > capacity){
+            return false;
+        }
+    }
+
+    return true
+};
