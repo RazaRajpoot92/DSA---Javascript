@@ -117,3 +117,30 @@ var rob = function(val) {
 
     return b
 };
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function(val) {
+    
+    let n = val.length;
+    if(n==1) return val[0]
+    if(n==2) return Math.max(val[0],val[1])
+
+    function helperRob(start, end){
+        let p1 = val[start]
+        let p2 = Math.max(p1, val[start+1])
+
+        for(let i = start+2; i<=end; i++){
+            let temp = p2;
+            p2 = Math.max(p2, p1 + val[i])
+            p1 = temp
+        }
+
+        return p2
+    }
+
+   return Math.max(helperRob(0, n-2), helperRob(1, n-1))
+};
