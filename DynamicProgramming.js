@@ -93,3 +93,27 @@ var climbStairs = function(n) {
 
 //     return c
 // };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function(val) {
+
+    if(val.length == 1) return val[0]
+
+    let n = val.length;
+
+    //let dp = [val[0], Math.max(val[0],val[1])]
+
+    let a = val[0]
+    let b = Math.max(a,val[1])
+
+    for(let i = 2; i<n; i++){
+        let temp = b
+        b = Math.max(a+val[i], b)
+        a = temp
+    }
+
+    return b
+};
