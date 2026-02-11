@@ -144,3 +144,36 @@ var rob = function(val) {
 
    return Math.max(helperRob(0, n-2), helperRob(1, n-1))
 };
+
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function(coins, amount) {
+    let n = coins.length;
+    let dp = {}
+
+    let fn = (remainingAmount)=>{
+
+        if(remainingAmount === 0) return 0
+        if(remainingAmount < 0) return -1
+
+        if(remainingAmount in dp){
+            return dp[remainingAmount]
+        }
+
+        let minCoins = Infinity
+        for(let i = 0; i<n; i++){
+            let res = fn(remainingAmount - coins[i])
+            if(res != -1){
+                minCoins = Math.min(1 + res, minCoins)
+            }
+
+        }
+        dp[remainingAmount] = minCoins === Infinity ? -1 : minCoins
+        return dp[remainingAmount]
+    }
+
+    return fn(amount)
+};
