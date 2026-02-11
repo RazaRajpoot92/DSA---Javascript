@@ -12,9 +12,8 @@
 // }
 // let s = "hello world, how I can help you?"
 // write(s)
+const api = "https://fakestoreapi.com/products/1"
+const products = fetch(api)
 
-let count = 0;
-document.getElementById("clickMe").addEventListener("click",function xy(){
-    console.log("work", ++count)
-    
-})
+products.then(res => res.json() )
+.then(product => console.log(product.rating.rate))
