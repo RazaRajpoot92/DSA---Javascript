@@ -268,3 +268,29 @@ var numDecodings = function (s) {
 
     return fn(s)
 };
+
+
+//
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxProduct = function(arr) {
+    let n = arr.length;
+    let maxProdSoFar = arr[0];
+    let miniProdSoFar = arr[0];
+    let totalProd = arr[0];
+
+    for(let i = 1; i < n; i++){
+        let maxProdCopy = maxProdSoFar;
+
+        maxProdSoFar = Math.max(arr[i], maxProdSoFar * arr[i], miniProdSoFar * arr[i]);
+        miniProdSoFar = Math.min(arr[i], maxProdCopy * arr[i], miniProdSoFar * arr[i]);
+
+        totalProd = Math.max(totalProd, maxProdSoFar);
+    }
+    
+    return totalProd;
+};
