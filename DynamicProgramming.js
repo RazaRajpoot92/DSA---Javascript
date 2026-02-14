@@ -294,3 +294,20 @@ var maxProduct = function(arr) {
     
     return totalProd;
 };
+
+
+var maxProduct = function(arr) {
+    let n = arr.length;
+    let ltr = rtl = 1
+    let totalMaxProd = -Infinity
+
+    for(let i = 0; i< n; i++){
+        ltr = ltr * arr[i]
+        rtl = rtl * arr[n-i-1]
+        totalMaxProd = Math.max(ltr,rtl, totalMaxProd)
+        if(ltr == 0) ltr = 1
+        if(rtl == 0) rtl = 1
+    }
+
+    return totalMaxProd
+};
