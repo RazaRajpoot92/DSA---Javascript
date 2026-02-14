@@ -311,3 +311,38 @@ var maxProduct = function(arr) {
 
     return totalMaxProd
 };
+
+//
+
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+var wordBreak = function (s, wordDict) {
+    let dp = {}
+
+    function canBreak(remainingStr) {
+
+        if (remainingStr == "") return true
+
+        if(dp[remainingStr] !== undefined) return dp[remainingStr]
+
+        let res = false
+
+        for (let i = 0; i < remainingStr.length; i++) {
+
+            let word = remainingStr.slice(0, i + 1)
+
+            if (wordDict.includes(word) && canBreak(remainingStr.slice(i + 1))){
+                res = true
+            }
+            
+        }
+
+        return dp[remainingStr] = res
+
+    }
+
+    return canBreak(s)
+};
