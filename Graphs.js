@@ -41,3 +41,42 @@ var cloneGraph = function(node) {
 
     return cloneNode
 };
+
+// DFS
+
+/**
+ * // Definition for a _Node.
+ * function _Node(val, neighbors) {
+ *    this.val = val === undefined ? 0 : val;
+ *    this.neighbors = neighbors === undefined ? [] : neighbors;
+ * };
+ */
+
+/**
+ * @param {_Node} node
+ * @return {_Node}
+ */
+var cloneGraph = function(node) {
+    if(!node) return null;
+
+    let stack = [node];
+    let cloneNode = new Node(node.val);
+    let visited = new Map();
+    visited.set(node, cloneNode)
+
+    while(stack.length){
+        let curr = stack.pop()
+        for(let n of curr.neighbors){
+
+            if(!visited.has(n)){
+                stack.push(n)
+                visited.set(n, new Node(n.val))
+            }
+
+            let currClone = visited.get(curr)
+            currClone.neighbors.push(visited.get(n))
+        }
+    }
+
+    return cloneNode;
+};
