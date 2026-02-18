@@ -154,3 +154,43 @@ var validPath = function(n, edges, source, destination) {
     return DFS(source)
     
 };
+
+
+//
+
+/**
+ * @param {string[][]} tickets
+ * @return {string[]}
+ */
+var findItinerary = function(tickets) {
+
+    let graph = {};
+
+    for(let [from, to] of tickets){
+        if(!graph[from]) graph[from] = [];
+        graph[from].push(to);
+    }
+
+    for(let path in graph){
+        graph[path].sort();
+    }
+
+    let path = []; 
+
+    function dfs(curr){
+
+        let destinations = graph[curr] || []
+
+        while(destinations.length){
+            let neighbor = graph[curr].shift();
+            dfs(neighbor)
+        }
+
+        path.unshift(curr)
+    }
+
+    dfs("JFK");
+
+    return path
+    
+};
