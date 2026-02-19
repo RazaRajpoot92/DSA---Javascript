@@ -236,3 +236,30 @@ return ans
 }
 
 module.exports = { topologicalSortKahn };
+
+
+// shortest path distantance in unweighted graph - BFS
+
+function shortestDistance(graph, src) {
+  // your solution here
+  let n = graph.length;
+  let distArr = new Array(n).fill(Infinity);
+  distArr[src] = 0;
+  let q = [src];
+  
+
+  while (q.length) {
+    let curr = q.shift();
+
+    for (let neighbor of graph[curr]) {
+      if (distArr[neighbor] === Infinity) { 
+        distArr[neighbor] = distArr[curr] + 1;
+        q.push(neighbor);
+      }
+    }
+  }
+
+  return distArr;
+}
+
+module.exports = { shortestDistance };
