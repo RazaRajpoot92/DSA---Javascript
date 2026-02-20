@@ -240,26 +240,152 @@ module.exports = { topologicalSortKahn };
 
 // shortest path distantance in unweighted graph - BFS
 
-function shortestDistance(graph, src) {
-  // your solution here
-  let n = graph.length;
-  let distArr = new Array(n).fill(Infinity);
-  distArr[src] = 0;
-  let q = [src];
+// function shortestDistance(graph, src) {
+//   // your solution here
+//   let n = graph.length;
+//   let distArr = new Array(n).fill(Infinity);
+//   distArr[src] = 0;
+//   let q = [src];
   
 
-  while (q.length) {
-    let curr = q.shift();
+//   while (q.length) {
+//     let curr = q.shift();
 
-    for (let neighbor of graph[curr]) {
-      if (distArr[neighbor] === Infinity) { 
-        distArr[neighbor] = distArr[curr] + 1;
-        q.push(neighbor);
-      }
+//     for (let neighbor of graph[curr]) {
+//       if (distArr[neighbor] === Infinity) { 
+//         distArr[neighbor] = distArr[curr] + 1;
+//         q.push(neighbor);
+//       }
+//     }
+//   }
+
+//   return distArr;
+// }
+
+// module.exports = { shortestDistance };
+
+
+// let graph = [[1,2], [3], [4],[5],[3],[]]
+// let src = 0;
+
+
+
+// Dijistra's shortest distance algorithm MinHeap (pq) + Greedy
+
+
+class MinHeap {
+    constructor() {
+        this.heap = [];
     }
-  }
 
-  return distArr;
+    parent(i) { return Math.floor((i - 1) / 2); }
+    left(i) { return 2 * i + 1; }
+    right(i) { return 2 * i + 2; }
+
+    size() {
+        return this.heap.length;
+    }
+
+    swap(i, j) {
+        [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+    }
+
+    push(pair) {
+        this.heap.push(pair);
+        this.heapifyUp();
+    }
+
+    heapifyUp() {
+        let i = this.heap.length - 1;
+
+        while (
+            i > 0 &&
+            this.heap[i][0] < this.heap[this.parent(i)][0]
+        ) {
+            this.swap(i, this.parent(i));
+            i = this.parent(i);
+        }
+    }
+
+    pop() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.heapifyDown();
+        return root;
+    }
+
+    heapifyDown() {
+        let i = 0;
+
+        while (true) {
+            let smallest = i;
+            let left = this.left(i);
+            let right = this.right(i);
+
+            if (
+                left < this.heap.length &&
+                this.heap[left][0] < this.heap[smallest][0]
+            ) {
+                smallest = left;
+            }
+
+            if (
+                right < this.heap.length &&
+                this.heap[right][0] < this.heap[smallest][0]
+            ) {
+                smallest = right;
+            }
+
+            if (smallest !== i) {
+                this.swap(i, smallest);
+                i = smallest;
+            } else {
+                break;
+            }
+        }
+    }
 }
 
-module.exports = { shortestDistance };
+
+function dijistra(graph, src) { 
+    let n = graph.length;
+    let dist = new Array(n).fill(Infinity);
+    dist[src] = 0;
+
+    let pq = new MinHeap();
+    pq.push([src, dist[src]]);
+
+    while (pq.size()) { 
+        let [currNode, currWeight] = pq.pop();
+
+        if (dist[currNode] < currWeight) continue;
+
+        for (let [neighbor, weight] of graph[currNode]) { 
+            let newDist = dist[currNode] + weight;
+
+            if (newDist < dist[neighbor]) { 
+                dist[neighbor] = newDist;
+                pq.push([neighbor, newDist])
+            }
+        }
+
+    }
+
+    return dist;
+
+}
+
+
+const graph = [
+    [[1, 2], [2, 4]],
+    [[3, 7], [2, 1]],
+    [[4, 3], [5, 1]],
+    [[6, 1]],
+    [[3, 2], [6, 5]],
+    [[3, 3], [6, 8]],
+    []
+];
+console.log(dijistra(graph, 0));
