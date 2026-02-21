@@ -389,3 +389,125 @@ const graph = [
     []
 ];
 console.log(dijistra(graph, 0));
+
+
+//
+// class MinHeap{
+//     constructor(){
+//         this.heap = [];
+//     }
+    
+//     getLeftChild(i){
+//         return ((2 * i) + 1)
+//     }
+    
+//     getRightChild(i){
+//         return ((2 * i) + 2)
+//     }
+    
+//     getParentIndex(i){
+//         return Math.floor((i-1)/2);
+//     }
+    
+//     insert(val){
+        
+//         this.heap.push(val);
+//         let lastIndex = this.heap.length - 1;
+//         this.heapifyUp(lastIndex);
+//     }
+    
+//     heapifyUp(i){
+//         while(i>0){
+//             let parentIndex = this.getParentIndex(i)
+            
+//             if(this.heap[i][1]<this.heap[parentIndex][1]){
+//                 [this.heap[i], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[i]];
+                
+//                 i = parentIndex;
+//             }else{
+//                 break;
+//             }
+//         }
+//     }
+    
+//     extract() {
+
+//         if (this.heap.length == 0) return null;
+//         if (this.heap.length == 1) return this.heap.pop();
+        
+//         let min = this.heap[0]
+//         this.heap[0] = this.heap[this.heap.length - 1]
+//         this.heap.pop()
+        
+//         this.heapifyDown(0)
+        
+//         return min
+//     }
+    
+//     heapifyDown(i){
+//         let left = this.getLeftChild(i)
+//         let right = this.getRightChild(i)
+//         let n = this.heap.length
+//         let smallest = i
+//        // console.log("work")
+//         if(left < n && this.heap[smallest][1] > this.heap[left][1]){
+            
+//             smallest = left
+//         }
+        
+//         if(right < n && this.heap[smallest][1] > this.heap[right][1]){
+            
+//             smallest = right
+//         }
+        
+//         if(smallest != i){
+//             [this.heap[i], this.heap[smallest]] = [this.heap[smallest],this.heap[i]]
+            
+//             this.heapifyDown(smallest)
+//         }
+//     }
+
+//     size() { return this.heap.length}
+    
+// }
+
+// function dijistra(graph, src) { 
+//     let n = graph.length;
+//     let dist = new Array(n).fill(Infinity);
+
+//     dist[src] = 0
+
+//     let pq = new MinHeap();
+
+//     pq.insert([src, 0]);
+
+//     while (pq.size()) { 
+//         let [node, nodeWeight] = pq.extract();
+
+//         if (nodeWeight > dist[node]) continue;
+
+//         for (let [neighbor, nWeight] of graph[node]) { 
+//             let newWeight = nWeight + dist[node];
+//             if (newWeight < dist[neighbor]) { 
+//                 dist[neighbor] = newWeight;
+//                 pq.insert([neighbor, newWeight])
+//             }
+//         }
+//     }
+
+//     return dist;
+
+// }
+
+
+// const graph = [
+//     [[1, 2], [2, 4]],
+//     [[3, 7], [2, 1]],
+//     [[4, 3], [5, 1]],
+//     [[6, 1]],
+//     [[3, 2], [6, 5]],
+//     [[3, 3], [6, 8]],
+//     []
+// ];
+
+// console.log(dijistra(graph, 0));
