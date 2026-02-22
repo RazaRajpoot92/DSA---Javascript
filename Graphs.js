@@ -614,25 +614,28 @@ console.log(floydWarshall(4, edges));
 
 
 // prim's MST algorithm
+
 function primMST(n, graph){
     
     let visited = new Array(n).fill(false);
     let pq = new MinHeap();
     pq.insert([0,0]);
     
-    let edgesUsed = 0;
     let mstCost = 0;
     
-    while(edgesUsed<n){
+    let nodesVisited = 0;
+
+    while (nodesVisited < n) {
         let [node, weight] = pq.extract();
+    
+        if (visited[node]) continue;
+    
         visited[node] = true;
-        edgesUsed++
+        nodesVisited++;
         mstCost += weight;
-        
-        for(let [n, w] of graph[node]){
-            if(!visited[n]){
-                pq.insert([n,w])
-            }
+    
+        for (let [next, w] of graph[node]) {
+            if (!visited[next]) pq.insert([next, w]);
         }
     }
     
@@ -640,6 +643,17 @@ function primMST(n, graph){
     
 }
 
+
+// const graph = [
+//     [[1,2],[3,1], [4,4]],
+//     [[0,2],[3,3], [2,3], [5,7]],
+//     [[1,3],[3,5],[5,8]],
+//     [[0,1], [4,9], [2,5], [1,3]],
+//     [[0,4], [3,9]],
+//     [[1,7], [2,8]]
+// ];
+
+console.log(primMST(6, graph));
 
 // const graph = [
 //     [[1, 4], [2, 2], [3, 5]],
