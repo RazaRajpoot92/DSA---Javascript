@@ -727,3 +727,47 @@ function Kruskal(n, edges){
 // ];
 
 console.log(Kruskal(6, edges));
+
+/**
+ * @param {number} n
+ * @param {number[][]} connections
+ * @return {number}
+ */
+var makeConnected = function (n, connections) {
+
+    if (connections.length < n - 1) return -1;
+    let graph = Array.from({ length: n }, () => []);
+    for (let [from, to] of connections) {
+        graph[from].push(to)
+        graph[to].push(from)
+    }
+
+    let visited = new Array(n).fill(false)
+    let noOfConnections = 0;
+    for (let i = 0; i < n; i++) {
+        if (!visited[i]) {
+            noOfConnections++
+            bfs(i, visited, graph)
+        }
+    }
+
+    return noOfConnections - 1
+
+};
+
+function bfs(src, visited, graph) {
+
+    let queue = [src]
+    visited[src] = true
+
+    while (queue.length) {
+        let curr = queue.shift()
+        for (let neighbor of graph[curr]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                queue.push(neighbor)
+            }
+        }
+    }
+
+}
