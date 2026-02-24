@@ -771,3 +771,45 @@ function bfs(src, visited, graph) {
     }
 
 }
+
+
+//
+
+/**
+ * @param {number} n
+ * @param {number[][]} flights
+ * @param {number} src
+ * @param {number} dst
+ * @param {number} k
+ * @return {number}
+ */
+var findCheapestPrice = function (n, flights, src, dst, k) {
+
+    let graph = Array.from({ length: n }, () => [])
+
+    for (let [from, to, price] of flights) {
+        graph[from].push([to, price])
+    }
+
+
+    let minCost = new Array(n).fill(Infinity);
+    minCost[src] = 0
+
+    let q = [[src, 0, 0]]
+
+    while (q.length) {
+        let [curr, cost, stops] = q.shift();
+        if (stops > k) continue;
+
+        for (let [neighbor, neighborPrice] of graph[curr]) {
+            let newPrice = cost + neighborPrice
+
+            if (newPrice < minCost[neighbor]) {
+                minCost[neighbor] = newPrice
+                q.push([neighbor, newPrice, stops + 1])
+            }
+        }
+    }
+
+    return minCost[dst] === Infinity ? -1 : minCost[dst]
+};
