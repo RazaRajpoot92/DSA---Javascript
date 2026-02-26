@@ -187,3 +187,85 @@ let result = groupAnagrams(strs)
 
 
 console.log(result)
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var numSteps = function (s) {
+    let operation = 0;
+    let carry = 0;
+
+    for(let i = s.length - 1; i>0; i--){
+        if(((s[i] - "0") + carry) % 2 == 1 ){
+            operation += 2;
+            carry = 1
+        }else{
+            operation++
+        }
+    }
+
+    return operation + carry;
+
+};
+
+
+
+// var numSteps = function (s) {
+//     let operation = 0;
+
+//     while (s.length > 1) {
+
+//         if (s[s.length - 1] == "0") {
+//             s = pop(s)
+//         } else {
+//             s = handleOdd(s)
+//         }
+        
+//         operation++
+//     }
+
+//     return operation
+
+// };
+
+// function pop(s) {
+//     return s.slice(0, s.length - 1)
+// }
+
+// function handleOdd(s) {
+//     let tempS = s.split("")
+//     let i = s.length - 1
+//     while (i >= 0) {
+//         if (tempS[i] == "1") {
+//             tempS[i] = "0"
+//         } else {
+//             tempS[i] = "1"
+//             break;
+//         }
+//         i--
+//     }
+
+//     if (i < 0) {
+//         tempS.unshift("1")
+//     }
+
+//     return tempS.join("")
+// }
+
+
+// var numSteps = function (s) {
+//     let n = BigInt("0b" + s)
+//     let count = 0n;
+
+//     while (n !== 1n) {
+//         count++
+//         if (n % 2n == 0n) {
+//             n = n / 2n
+//         } else {
+//             n = n + 1n
+//         }
+//     }
+
+//     return Number(count);
+// };
