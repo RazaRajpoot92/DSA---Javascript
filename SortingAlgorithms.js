@@ -174,3 +174,32 @@ function quickSort(arr, startIndex, endIndex){
 //let arr = [8,3,1,7,0,10,2]
 
 console.log(quickSort(arr,0, arr.length - 1))
+
+
+// Counting sort (unstable)
+
+
+function countingSort(arr){
+    let max = Math.max(...arr)
+    let count = new Array(max+1).fill(0)
+    for(let num of arr){
+        count[num]++
+        
+    }
+
+    let index = 0
+    for(let i =0; i<count.length; i++){
+        while(count[i]){
+            arr[index] = i
+            count[i]--
+            index++
+        }
+    }
+    
+    return arr
+}
+
+
+//let arr = [0,5,5,2,3,4,2,1,6,7,9]
+
+console.log(countingSort(arr))
