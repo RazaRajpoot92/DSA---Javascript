@@ -203,3 +203,36 @@ function countingSort(arr){
 //let arr = [0,5,5,2,3,4,2,1,6,7,9]
 
 console.log(countingSort(arr))
+
+function countingSortStable(arr){
+    let max = Math.max(...arr)
+    let count = new Array(max+1).fill(0)
+    
+    for(let x of arr){
+        count[x]++
+    }
+    
+    // let prefixSum = new Array(max+1).fill(0)
+    // prefixSum[0] = count[0]
+    
+    for(let i = 1; i<count.length; i++){
+        count[i] = count[i] + count[i-1]
+    }
+ 
+    let sortedArray = new Array(arr.length)
+    
+    for(let i = arr.length -1; i>=0; i--){
+        let curr = arr[i]
+        let x = count[curr]
+        sortedArray[x-1] = curr
+        count[curr]--
+    }
+    
+    return sortedArray;
+    
+}
+
+
+//let arr = [2,4,5,3,3,2,1,4,5,5,5,59,9,9,5]
+
+console.log(countingSortStable(arr))
