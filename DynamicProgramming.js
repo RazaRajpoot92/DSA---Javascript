@@ -442,3 +442,53 @@ var change = function(amount, coins) {
     
     return fn(amount, 0)
 };
+
+//
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function(nums) {
+    let farthest = 0;
+    
+    for(let i = 0; i<nums.length; i++){
+
+        if(i>farthest) return false;
+
+        farthest = Math.max(farthest, i+nums[i])
+    }
+
+    return true
+};
+
+
+
+
+
+
+
+
+
+
+// dp approach - TLE
+// var canJump = function(nums) {
+//     let end = nums.length - 1;
+//     let dp = new Array(nums.length).fill(-1)
+
+//     function bfs(start){
+//         if(start == end) return true
+//         if(dp[start] !== -1) return dp[start]
+
+//         let ans = false;
+//         for(let i = 1; i <= nums[start]; i++){
+//             ans = ans || bfs(i+start)
+//         }
+       
+
+//         return dp[start] = ans
+
+//     }
+
+//     return bfs(0)
+// };
