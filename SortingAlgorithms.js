@@ -236,3 +236,38 @@ function countingSortStable(arr){
 //let arr = [2,4,5,3,3,2,1,4,5,5,5,59,9,9,5]
 
 console.log(countingSortStable(arr))
+
+// Bucket Sort
+
+function bucketSort(arr){
+    let n = arr.length;
+    
+    let buckets = Array.from({length:n}, ()=> [])
+    
+    for(let x of arr){
+        let index = Math.floor(x * n)
+       // console.log(index, x, n)
+        buckets[index].push(x)
+    }
+    
+    for(let bucket of buckets){
+        bucket.sort((a,b) => a-b)
+    }
+    
+    let i = 0;
+    
+    for(let bucket of buckets){
+        for(let num of bucket){
+            arr[i] = num
+            i++
+        }
+    }
+    
+    return arr
+}
+
+
+
+//let arr = [0.78, 0.67, 0.12, 0.82, 0.23, 0.34, 0.54]
+
+console.log(bucketSort(arr))
