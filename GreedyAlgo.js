@@ -359,3 +359,4 @@ var jump = function(nums) {
 
     return jumps;
 };
+
