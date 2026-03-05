@@ -207,3 +207,50 @@ var majorityElement = function(nums) {
 //         }
 //     }
 // };
+
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+    let n = nums.length;
+    if(n<3) return []
+    nums.sort((a,b) => a-b)
+    let result = []
+
+
+
+    for(let i = 0; i<n-2; i++){
+        if(i>0 && nums[i] == nums[i-1]){
+            continue;
+        }
+
+        let n1 = nums[i]
+        let target = -n1
+
+        twoSum(nums, target, i+1, n-1, result)
+
+    }
+
+    return result
+};
+
+function twoSum(nums, target, i, j, result){
+    
+
+    while(i<j){
+        if(nums[i]+nums[j] > target){
+            j--
+        } else if(nums[i]+nums[j] < target){
+            i++
+        }else{
+            while(nums[i]===nums[i+1]) i++;
+            while(nums[j]===nums[j-1]) j--;
+
+            result.push([ -target, nums[i], nums[j] ])
+            i++;
+            j--;
+        }
+    }
+}
