@@ -254,3 +254,38 @@ function twoSum(nums, target, i, j, result){
         }
     }
 }
+
+//
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function(nums, target) {
+    let n = nums.length;
+    nums.sort((a,b)=> a-b)
+
+    let closest = Infinity
+
+    for(let k = 0; k<=n-3; k++){
+        let i = k+1;
+        let j = n-1;
+
+        while(i<j){
+            let sum = nums[k] + nums[i] + nums[j]
+
+            if(Math.abs(target - sum) < Math.abs(target - closest)){
+                closest = sum
+            }
+
+            if(sum < target){
+                i++
+            }else{
+                j--
+            }
+        }
+    }
+
+    return closest
+};
