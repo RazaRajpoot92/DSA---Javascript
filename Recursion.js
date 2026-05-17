@@ -132,3 +132,24 @@ var search = function(nums, target) {
 };
 
 
+/**
+ * @param {number[]} arr
+ * @param {number} start
+ * @return {boolean}
+ */
+var canReach = function(arr, start) {
+   return solve(arr, start)
+};
+
+function solve(arr, i){
+    if(i<0 || i>=arr.length || arr[i]<0) return false
+
+    if(arr[i] == 0) return true
+
+    arr[i] *= -1
+
+    let a = solve(arr, i + arr[i])
+    let b = solve(arr, i- arr[i])
+
+    return a || b
+}
