@@ -153,3 +153,61 @@ function solve(arr, i){
 
     return a || b
 }
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var minJumps = function(arr) {
+    let n = arr.length;
+    let map = {}
+
+    for(let i =0; i<n; i++){
+        if(map[arr[i]] !== undefined){
+            map[arr[i]].push(i)
+        }else{
+            map[arr[i]] = [i]
+        }
+    }
+
+    let visited = new Array(n).fill(false)
+    visited[0] = true
+    let q = []
+    q.push(0)
+    let steps = 0
+
+    while(q.length){
+        let size = q.length
+
+        while(size--){
+            let temp = q.shift()
+
+            if(temp == n-1) return steps
+
+            let x = temp + 1;
+            let y = temp - 1;
+
+            if(x>=0 && x<n && visited[x] !== true){
+                q.push(x)
+                visited[x] = true 
+            }
+
+            if(y>=0 && y<n && visited[y] !== true){
+                q.push(y)
+                visited[y] = true
+            }
+
+            for(let j of map[arr[temp]]){
+                if(visited[j] !== true){
+                    q.push(j)
+                    visited[j] = true
+                }
+            }
+
+           map[arr[temp]] = []
+        }
+        steps++
+    }
+
+    return -1
+};
