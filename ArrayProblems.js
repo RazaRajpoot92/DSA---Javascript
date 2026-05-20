@@ -357,3 +357,68 @@ var findMin = function(nums) {
 
     return nums[l];
 };
+
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number[]}
+ */
+var findThePrefixCommonArray = function(A, B) {
+   let n = A.length
+   let map = {}
+   let count = 0
+   let result = []
+
+   for(let i = 0; i<n; i++){
+        if(map[A[i]] == undefined){
+            map[A[i]] = 1
+        }else{
+            map[A[i]]++
+        }
+
+        if(map[A[i]] == 2) count++
+
+        if(map[B[i]] == undefined){
+            map[B[i]] = 1
+        }else{
+            map[B[i]]++
+        }
+
+        if(map[B[i]] == 2) count++
+
+        result.push(count)
+   }
+    
+    return result
+};
+
+
+
+
+
+// var findThePrefixCommonArray = function(A, B) {
+//     let result = []
+//     for(let n = 0; n<A.length; n++){
+//         let count  = findCommonCount(A,B, n)
+    
+//         result.push(count)
+//     }
+    
+//     return result
+// };
+
+// function findCommonCount(a, b,n){
+
+//     let count = 0
+//     for(let i = 0; i<=n; i++){
+//         for(let j =0; j<=n; j++){
+
+//             if(a[i] == b[j]){
+//                 count++
+//             } 
+
+//         }
+//     }
+
+//     return count
+// }
