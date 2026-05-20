@@ -396,29 +396,29 @@ var findThePrefixCommonArray = function(A, B) {
 
 
 
-// var findThePrefixCommonArray = function(A, B) {
-//     let result = []
-//     for(let n = 0; n<A.length; n++){
-//         let count  = findCommonCount(A,B, n)
+var findThePrefixCommonArray = function(A, B) {
+    let result = []
+    for(let n = 0; n<A.length; n++){
+        let count  = findCommonCount(A,B, n)
     
-//         result.push(count)
-//     }
+        result.push(count)
+    }
     
-//     return result
-// };
+    return result
+};
 
-// function findCommonCount(a, b,n){
+function findCommonCount(a, b,n){
 
-//     let count = 0
-//     for(let i = 0; i<=n; i++){
-//         for(let j =0; j<=n; j++){
+    let count = 0
+    for(let i = 0; i<=n; i++){
+        for(let j =0; j<=n; j++){
 
-//             if(a[i] == b[j]){
-//                 count++
-//             } 
+            if(a[i] == b[j]){
+                count++
+            } 
 
-//         }
-//     }
+        }
+    }
 
-//     return count
-// }
+    return count
+}
