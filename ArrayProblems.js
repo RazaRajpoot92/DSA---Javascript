@@ -422,3 +422,129 @@ function findCommonCount(a, b,n){
 
     return count
 }
+
+
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number}
+ */
+var longestCommonPrefix = function(arr1, arr2) {
+    let set = new Set()
+
+    for(let num of arr1){
+        
+        while(!set.has(num) && num > 0){
+            set.add(num)
+            num = Math.floor(num/10)
+        }
+    }
+
+    let result = 0
+    
+    for(let num of arr2){
+
+        while(num>0){
+            if(set.has(num)){
+            
+                let len = Math.ceil(Math.log10(num+1))
+            
+                result = Math.max(result, len)
+            }
+            num = Math.floor(num/10)
+        }
+    }
+
+
+    return result
+};
+
+
+
+
+// var longestCommonPrefix = function(arr1, arr2) {
+//     let n = arr1.length;
+//     let m = arr2.length;
+//     let maxCount = 0
+//     for(let i =0; i<n; i++){
+//         for(let j=0; j<m; j++){
+
+//            let count = getPrefixCount(arr1[i], arr2[j])
+           
+//            maxCount = Math.max(maxCount, count)
+//         }  
+//     }
+
+//     return maxCount
+// };
+
+
+// function getPrefixCount(num1, num2) {
+//     let numStr1 = num1.toString();
+//     let numStr2 = num2.toString();
+
+//     let i = 0;
+//     let j = 0;
+//     let prefixCount = 0;
+
+//     while (i < numStr1.length && j < numStr2.length) {
+//         if (numStr1[i] == numStr2[j]) {
+//             prefixCount++;
+//         } else {
+//             break;
+//         }
+
+//         i++;
+//         j++;
+//     }
+
+//     return prefixCount;
+// }
+
+// function getPrefixCount(num1, num2){
+
+//     let l1 = getLength(num1)
+//     let l2 = getLength(num2)
+    
+
+//     if(l1 > l2){
+//         let diff = l1 - l2
+
+//         for(let i =0; i<diff; i++){
+//             num1 = Math.floor(num1/10)
+//         }
+//     }else if(l1<l2){
+//         let diff = l2 - l1
+//         for(let i =0; i<diff; i++){
+//             num2 = Math.floor(num2/10)
+//         }
+//     }
+
+    
+
+//     while(num1>0 && num2>0){
+//         if(num1 == num2){
+//             return getLength(num1)
+//         }
+//         num1 = Math.floor(num1/10)
+//         num2 = Math.floor(num2/10)
+//     }
+    
+//     return 0
+// }
+
+// function getLength(num){
+//     num = Math.abs(num)
+
+//     if(num == 0) return 1
+
+//     let length = 0
+
+//     while(num>0){
+//         length++
+//         num = Math.floor(num/10)
+
+//     }
+
+//     return length
+// }
