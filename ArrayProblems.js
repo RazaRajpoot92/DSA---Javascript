@@ -459,6 +459,94 @@ var longestCommonPrefix = function(arr1, arr2) {
     return result
 };
 
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var check = function(nums) {
+    let n = nums.length
+
+    let peak = 0
+
+    for(let i =0; i<n; i++){
+        if(nums[i] > nums[(i+1)%n]) peak++
+    }
+
+    if(peak > 1) return false
+
+    return true
+
+};
+
+
+
+// var check = function(nums) {
+//     let isSorted = checkSortedArray(nums, 0)
+//     if(isSorted) return true
+//     const minIdx = findPivot(nums)
+//     console.log(minIdx)
+//     return checkSortedArray(nums, minIdx)
+
+// };
+
+
+// function findPivot(nums){
+//     let l = 0;
+//     let r = nums.length - 1
+
+//     while(l<r){
+
+//         // while(nums[l] == nums[l+1]){
+//         //     l++
+//         // }
+
+//         // while(nums[r] == nums[r-1]){
+//         //     r--
+//         // }
+        
+//         let m = Math.floor(l + (r-l)/2)
+
+//         if(nums[m] > nums[r]){
+//             l = m + 1
+//         }else{
+//             r = m
+//         }
+//     }
+
+//     return r
+// }
+
+// function findMinIdx(nums){
+//     let min = Infinity
+//     let idx = 0
+
+//     for(let i = 0; i<nums.length; i++){
+//         if(nums[i]<min){
+//             min = nums[i]
+//             idx = i
+//         }
+//     }
+
+//     return idx
+// }
+
+// function checkSortedArray(nums, pivot){
+//     let n = nums.length
+    
+//     for(let i =0; i<n-1; i++){
+//         let idx = (pivot + i) % n
+//         let nextIdx = (pivot + i+1) % n
+
+//         if(nums[idx]>nums[nextIdx]){
+//             return false
+//         }
+//     }
+
+//     return true
+// }
+
+
+
 
 
 
