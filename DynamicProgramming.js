@@ -568,3 +568,45 @@ var superEggDrop = function(k, n) {
 //         }
 //     }
 // }
+
+/**
+ * @param {number[]} arr
+ * @param {number} d
+ * @return {number}
+ */
+var maxJumps = function (arr, d) {
+    let n = arr.length;
+    let t = new Array(n).fill(-1)
+    let result = 1;
+
+    for (let i = 0; i < n; i++) {
+        result = Math.max(result, solve(arr, i, d, t))
+    }
+
+    return result
+};
+
+function solve(arr, i, d, t) {
+
+    if(t[i] !== -1) return t[i]
+
+    let result = 1
+    //left side traversal
+    for (let j = i - 1; j >= Math.max(0, i - d); j--) {
+
+        if (arr[i] <= arr[j]) break;
+
+        result = Math.max(result, 1 + solve(arr, j, d,t))
+    }
+
+    //right side traversal
+
+    for (let j = i + 1; j <= Math.min(arr.length - 1, i + d); j++) {
+
+        if (arr[i] <= arr[j]) break;
+
+        result = Math.max(result, 1 + solve(arr, j, d,t))
+    }
+
+    return t[i] = result
+}
