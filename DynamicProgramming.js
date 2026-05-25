@@ -610,3 +610,31 @@ function solve(arr, i, d, t) {
 
     return t[i] = result
 }
+
+var canReach = function(s, minJump, maxJump) {
+
+    let n = s.length;
+    let q = []
+    q.push(0)
+
+    let farthest = 0
+    while(q.length){
+        let index = q.shift()
+
+        let start = Math.max(farthest+1, index+minJump)
+        let end = Math.min(index+maxJump, n-1)
+
+        for(let j = start; j<=end; j++){
+            if(s[j] == "0" ){
+                
+                if(j == n-1) return true
+                q.push(j)
+            }
+        }
+
+        farthest = Math.max(farthest, end)
+    }
+
+    return false
+};
+
