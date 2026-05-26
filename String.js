@@ -269,3 +269,31 @@ var numSteps = function (s) {
 
 //     return Number(count);
 // };
+
+
+/**
+ * @param {string} word
+ * @return {number}
+ */
+var numberOfSpecialChars = function (word) {
+    let setLower = new Set()
+    let setUpper = new Set()
+
+    for (let ch of word) {
+        if(ch.toLowerCase() == ch){
+            setLower.add(ch)
+        }
+
+        if(ch.toUpperCase() == ch){
+            setUpper.add(ch)
+        }
+        
+    }
+
+    let count = 0
+    for(let ch of setLower){
+        if(setUpper.has(ch.toUpperCase())) count++
+    }
+
+    return count
+};
