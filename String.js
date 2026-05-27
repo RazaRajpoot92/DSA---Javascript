@@ -297,3 +297,35 @@ var numberOfSpecialChars = function (word) {
 
     return count
 };
+
+
+var numberOfSpecialChars = function(word) {
+    let lastSmall = new Array(26).fill(-1);
+    let firstCapital = new Array(26).fill(-1);
+
+    for (let i = 0; i < word.length; i++) {
+        let ch = word[i];
+
+        if (ch >= 'a' && ch <= 'z') {
+            lastSmall[ch.charCodeAt(0) - 97] = i;
+        } else {
+            if (firstCapital[ch.charCodeAt(0) - 65] === -1) {
+                firstCapital[ch.charCodeAt(0) - 65] = i;
+            }
+        }
+    }
+
+    let count = 0;
+
+    for (let i = 0; i < 26; i++) {
+        if (
+            lastSmall[i] !== -1 &&
+            firstCapital[i] !== -1 &&
+            lastSmall[i] < firstCapital[i]
+        ) {
+            count++;
+        }
+    }
+
+    return count;
+};
