@@ -548,7 +548,26 @@ var check = function(nums) {
 
 
 
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minElement = function(nums) {
+    let min = Infinity
 
+    for(let num of nums){
+        let currSum = 0
+        while(num>0){
+            let lastDigit = num%10
+            currSum+=lastDigit
+            num = Math.floor(num/10)
+        }
+
+        min = Math.min(currSum, min)
+    }
+
+    return min
+};
 
 // var longestCommonPrefix = function(arr1, arr2) {
 //     let n = arr1.length;
