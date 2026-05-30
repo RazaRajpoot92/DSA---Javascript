@@ -655,3 +655,106 @@ var minElement = function(nums) {
 
 //     return length
 // }
+
+
+
+// Segment tree 
+
+
+/**
+ * @param {number[][]} queries
+ * @return {boolean[]}
+ */
+var getResults = function(queries) {
+    const n = 50000;
+    const segmentTree = new Array(4 * n).fill(0);
+
+    function updateSegTree(idx, val, i, l, r) {
+        if (l === r) {
+            segmentTree[i] = val;
+            return;
+        }
+
+        const mid = l + Math.floor((r - l) / 2);
+
+        if (idx <= mid) {
+            updateSegTree(idx, val, 2 * i + 1, l, mid);
+        } else {
+            updateSegTree(idx, val, 2 * i + 2, mid + 1, r);
+        }
+
+        segmentTree[i] = Math.max(
+            segmentTree[2 * i + 1],
+            segmentTree[2 * i + 2]
+        );
+    }
+
+    function querySegTree(start, end, i, l, r) {
+        if (l > end || r < start) {
+            return 0;
+        }
+
+        if (l >= start && r <= end) {
+            return segmentTree[i];
+        }
+
+        const mid = l + Math.floor((r - l) / 2);
+
+        return Math.max(
+            querySegTree(start, end, 2 * i + 1, l, mid),
+            querySegTree(start, end, 2 * i + 2, mid + 1, r)
+        );
+    }
+
+    const obstacles = [0];
+    const result = [];
+
+    function upperBound(arr, target) {
+        let left = 0;
+        let right = arr.length;
+
+        while (left < right) {
+            const mid = left + Math.floor((right - left) / 2);
+
+            if (arr[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        return left;
+    }
+
+    for (const query of queries) {
+        if (query[0] === 1) {
+            const x = query[1];
+
+            const idx = upperBound(obstacles, x);
+
+            const nxt = idx < obstacles.length ? obstacles[idx] : -1;
+            const pre = obstacles[idx - 1];
+
+            updateSegTree(x, x - pre, 0, 0, n - 1);
+
+            if (nxt !== -1) {
+                updateSegTree(nxt, nxt - x, 0, 0, n - 1);
+            }
+
+            obstacles.splice(idx, 0, x);
+        } else {
+            const x = query[1];
+            const sz = query[2];
+
+            const idx = upperBound(obstacles, x);
+            const pre = obstacles[idx - 1];
+
+            const maxGap = querySegTree(0, pre, 0, 0, n - 1);
+            const best = Math.max(maxGap, x - pre);
+
+            result.push(best >= sz);
+        }
+    }
+
+    return result;
+};
