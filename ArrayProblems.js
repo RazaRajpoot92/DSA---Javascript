@@ -758,3 +758,23 @@ var getResults = function(queries) {
 
     return result;
 };
+
+
+/**
+ * @param {number} mass
+ * @param {number[]} asteroids
+ * @return {boolean}
+ */
+var asteroidsDestroyed = function(mass, asteroids) {
+    asteroids.sort((a,b) => a-b)
+
+    for(let ast of asteroids){
+        if(mass>=ast){
+            mass += ast
+        }else{
+            return false
+        }
+    }
+
+    return true
+};
