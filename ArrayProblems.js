@@ -778,3 +778,44 @@ var asteroidsDestroyed = function(mass, asteroids) {
 
     return true
 };
+
+
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+// var minimumCost = function(cost) {
+
+//     cost.sort((a,b)=>b-a)
+    
+//     let minCost = 0
+
+//     for(let i =0; i<cost.length; i++){
+//         if(i%3 !== 2){
+//             minCost += cost[i]
+//         }
+//     }
+
+//     return minCost
+
+// };
+
+
+
+var minimumCost = function(cost) {
+
+    cost.sort((a,b)=>b-a)
+
+    let minCost = 0
+    let freeI = 2
+
+    for(let i =0; i<cost.length; i++){
+        if(i==freeI){
+            freeI +=3
+            continue;
+        } 
+        minCost+=cost[i]
+    }
+
+    return minCost
+};
