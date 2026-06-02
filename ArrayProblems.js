@@ -819,3 +819,84 @@ var minimumCost = function(cost) {
 
     return minCost
 };
+
+/**
+ * @param {number[]} landStartTime
+ * @param {number[]} landDuration
+ * @param {number[]} waterStartTime
+ * @param {number[]} waterDuration
+ * @return {number}
+ */
+var earliestFinishTime = function(landStartTime, landDuration, waterStartTime, waterDuration) {
+    let n = landStartTime.length
+    let m = waterStartTime.length;
+
+    let result = Infinity
+    for(let i = 0; i<n; i++){
+        for(let j =0; j<m; j++){
+            let landFinishTime = landStartTime[i] + landDuration[i]
+            let finish = Math.max(landFinishTime, waterStartTime[j]) + waterDuration[j]
+            result = Math.min(finish, result)
+        }
+    }
+    
+    for(let i = 0; i<m; i++){
+        for(let j =0; j<n; j++){
+            let waterFinish = waterStartTime[i] + waterDuration[i]
+            let finish = Math.max(waterFinish, landStartTime[j]) + landDuration[j]
+            
+            result = Math.min(finish, result)
+        }
+    }
+
+
+    return result
+};
+
+
+// /**
+//  * @param {number[]} landStartTime
+//  * @param {number[]} landDuration
+//  * @param {number[]} waterStartTime
+//  * @param {number[]} waterDuration
+//  * @return {number}
+//  */
+// var earliestFinishTime = function(
+//     landStartTime,
+//     landDuration,
+//     waterStartTime,
+//     waterDuration
+// ) {
+//     let n = landStartTime.length;
+//     let m = waterStartTime.length;
+
+//     let result = Infinity;
+
+//     // Land -> Water
+//     for (let i = 0; i < n; i++) {
+//         for (let j = 0; j < m; j++) {
+//             let landFinish = landStartTime[i] + landDuration[i];
+
+//             let finish =
+//                 Math.max(landFinish, waterStartTime[j]) +
+//                 waterDuration[j];
+
+//             result = Math.min(result, finish);
+//         }
+//     }
+
+//     // Water -> Land
+//     for (let i = 0; i < m; i++) {
+//         for (let j = 0; j < n; j++) {
+//             let waterFinish = waterStartTime[i] + waterDuration[i];
+
+//             let finish =
+//                 Math.max(waterFinish, landStartTime[j]) +
+//                 landDuration[j];
+
+//             result = Math.min(result, finish);
+//         }
+//     }
+
+//     return result;
+// };
