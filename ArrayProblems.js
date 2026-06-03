@@ -852,3 +852,38 @@ var earliestFinishTime = function(landStartTime, landDuration, waterStartTime, w
 
     return result
 };
+
+/**
+ * @param {number[]} landStartTime
+ * @param {number[]} landDuration
+ * @param {number[]} waterStartTime
+ * @param {number[]} waterDuration
+ * @return {number}
+ */
+var earliestFinishTime = function (landStartTime, landDuration, waterStartTime, waterDuration) {
+
+    let bestLandFinish = Infinity
+    let bestWaterFinish = Infinity
+    let answer = Infinity
+
+    for (let i = 0; i < landStartTime.length; i++) {
+        bestLandFinish = Math.min(bestLandFinish, landStartTime[i] + landDuration[i])
+    }
+
+    for (let i = 0; i < waterStartTime.length; i++) {
+        let curr = Math.max(bestLandFinish, waterStartTime[i] ) + waterDuration[i]
+        answer = Math.min(answer, curr)
+    }
+
+    for (let i = 0; i < waterStartTime.length; i++) {
+        bestWaterFinish = Math.min(bestWaterFinish, waterStartTime[i] + waterDuration[i])
+    }
+
+    for (let i = 0; i < landStartTime.length; i++) {
+        let curr = Math.max(bestWaterFinish, landStartTime[i]) + landDuration[i]
+        answer = Math.min(answer, curr)
+    }
+
+    return answer
+
+};
