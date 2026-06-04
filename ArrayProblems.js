@@ -887,3 +887,39 @@ var earliestFinishTime = function (landStartTime, landDuration, waterStartTime, 
     return answer
 
 };
+
+/**
+ * @param {number} num1
+ * @param {number} num2
+ * @return {number}
+ */
+var totalWaviness = function (num1, num2) {
+
+    let total = 0
+    for (let num = num1; num <= num2; num++) {
+
+        if (num < 100) continue;
+
+        total += countWaviness(num)
+    }
+
+    return total
+};
+
+function countWaviness(num) {
+
+    let numStr = String(num)
+    let count = 0
+    for (let i = 1; i < numStr.length - 1; i++) {
+        //peak
+        if (numStr[i] > numStr[i - 1] && numStr[i] > numStr[i + 1]) {
+            count++
+
+        }//valley
+        else if (numStr[i] < numStr[i - 1] && numStr[i] < numStr[i + 1]) {
+            count++
+        }
+    }
+
+    return count
+}
