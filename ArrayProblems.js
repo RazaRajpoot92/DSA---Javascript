@@ -923,3 +923,29 @@ function countWaviness(num) {
 
     return count
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var leftRightDifference = function(nums) {
+    let n = nums.length
+    let leftSum = new Array(n)
+    let rightSum = new Array(n)
+    leftSum[0] = 0
+    rightSum[n-1] = 0
+
+    for(let i =1; i<n; i++){
+        leftSum[i] = nums[i-1] + leftSum[i-1]
+        rightSum[n-i-1] = nums[n-i] + rightSum[n-i]
+      
+    }
+
+    let result = new Array(n)
+
+    for(let i =0; i<n; i++){
+        result[i] = Math.abs(leftSum[i] - rightSum[i])
+    }
+
+    return result
+};
