@@ -659,3 +659,52 @@ var lowestCommonAncestor = function(root, p, q) {
         return root
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[][]} descriptions
+ * @return {TreeNode}
+ */
+var createBinaryTree = function (nodes) {
+    let treeNodes = new Map()
+    let childSet = new Set()
+
+    for (let node of nodes) {
+        let [p, c, isLeft] = node
+
+        if (!treeNodes.has(p)) {
+            treeNodes.set(p, new TreeNode(p))
+        }
+
+        if (!treeNodes.has(c)) {
+            treeNodes.set(c, new TreeNode(c))
+        }
+
+        let parent = treeNodes.get(p)
+        let child = treeNodes.get(c)
+
+        if (isLeft == 1) {
+            parent.left = child
+        } else {
+            parent.right = child
+        }
+
+        childSet.add(child.val)
+    }
+    let root = null
+    for(let node of nodes){
+        if(!childSet.has(node[0])){
+            root = treeNodes.get(node[0])
+            break;
+        }
+    }
+    
+    return root
+};
