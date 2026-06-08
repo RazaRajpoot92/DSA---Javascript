@@ -211,3 +211,63 @@ var minJumps = function(arr) {
 
     return -1
 };
+
+function bString(s, n, prev){
+  
+    if(s.length == n){
+        console.log(s)
+        return
+    }
+    
+    bString(s+"1", n, "1")
+    
+    if(prev !== "0"){
+        bString(s+"0", n, "0")
+    }
+
+        
+    
+}
+bString("",3,"1")
+
+function bString(s, n, prev) {
+    if (s.length === n) {
+        console.log(s);
+        return;
+    }
+
+    // always can place '1'
+    bString(s + "1", n, "1");
+
+    // place '0' only if previous is not '0'
+    if (prev !== "0") {
+        bString(s + "0", n, "0");
+    }
+}
+
+bString("", 3, "1");
+
+
+
+
+// bString("",3,2, 0)
+
+// let dp
+
+// function bString(s, n, k, count, prev) {
+//     if (s.length === n) {
+//         console.log(s);
+//         return;
+//     }
+//     // always take 0
+//     bString(s + "0", n, k, count, "0");
+
+//     // take 1 only if:
+//     // 1. prev is not '1'
+//     // 2. count < k
+//     if (prev !== "1" && count < k) {
+//         bString(s + "1", n, k, count + 1, "1");
+//     }
+// }
+
+// bString("", 3, 2, 0, "0");
