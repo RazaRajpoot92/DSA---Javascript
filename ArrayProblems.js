@@ -949,3 +949,20 @@ var leftRightDifference = function(nums) {
 
     return result
 };
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var maxTotalValue = function (nums, k) {
+    
+    let max = -Infinity
+    let min = Infinity
+
+    for (let num of nums) {
+        max = Math.max(max, num)
+        min = Math.min(min, num)
+    }
+
+    return k * (max - min)
+};
