@@ -277,3 +277,145 @@ var kthSmallest = function(matrix, k) {
 // console.log(heap.heap)
 
 
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var maxTotalValue = function(nums, k) {
+    const n = nums.length;
+
+    
+    class SegmentTree {
+        constructor(nums, isMinTree) {
+            this.isMinTree = isMinTree;
+            this.tree = new Array(4 * nums.length);
+
+            this.build(0, 0, nums.length - 1, nums);
+        }
+
+        build(i, l, r, nums) {
+            if (l === r) {
+                this.tree[i] = nums[l];
+                return;
+            }
+
+            let mid = Math.floor((l + r) / 2);
+
+            this.build(2 * i + 1, l, mid, nums);
+            this.build(2 * i + 2, mid + 1, r, nums);
+
+            this.tree[i] = this.isMinTree
+                ? Math.min(this.tree[2 * i + 1], this.tree[2 * i + 2])
+                : Math.max(this.tree[2 * i + 1], this.tree[2 * i + 2]);
+        }
+
+        queryRange(qL, qR, i, l, r) {
+            if (r < qL || l > qR) {
+                return this.isMinTree ? Infinity : -Infinity;
+            }
+
+            if (qL <= l && r <= qR) {
+                return this.tree[i];
+            }
+
+            let mid = Math.floor((l + r) / 2);
+
+            let left = this.queryRange(qL, qR, 2 * i + 1, l, mid);
+            let right = this.queryRange(qL, qR, 2 * i + 2, mid + 1, r);
+
+            return this.isMinTree ? Math.min(left, right) : Math.max(left, right);
+        }
+
+        query(l, r, n) {
+            return this.queryRange(l, r, 0, 0, n - 1);
+        }
+    }
+
+    
+    class MaxHeap {
+        constructor() {
+            this.heap = [];
+        }
+
+        push(item) {
+            this.heap.push(item);
+            this.up(this.heap.length - 1);
+        }
+
+        pop() {
+            if (this.heap.length === 1) return this.heap.pop();
+
+            const top = this.heap[0];
+            this.heap[0] = this.heap.pop();
+            this.down(0);
+
+            return top;
+        }
+
+        up(i) {
+            while (i > 0) {
+                let p = Math.floor((i - 1) / 2);
+                if (this.heap[p][0] >= this.heap[i][0]) break;
+
+                [this.heap[p], this.heap[i]] = [this.heap[i], this.heap[p]];
+                i = p;
+            }
+        }
+
+        down(i) {
+            let n = this.heap.length;
+
+            while (true) {
+                let largest = i;
+                let l = 2 * i + 1;
+                let r = 2 * i + 2;
+
+                if (l < n && this.heap[l][0] > this.heap[largest][0]) {
+                    largest = l;
+                }
+
+                if (r < n && this.heap[r][0] > this.heap[largest][0]) {
+                    largest = r;
+                }
+
+                if (largest === i) break;
+
+                [this.heap[i], this.heap[largest]] =
+                    [this.heap[largest], this.heap[i]];
+
+                i = largest;
+            }
+        }
+    }
+
+    
+    const minST = new SegmentTree(nums, true);
+    const maxST = new SegmentTree(nums, false);
+
+    function getValue(l, r) {
+        return maxST.query(l, r, n) - minST.query(l, r, n);
+    }
+
+    const pq = new MaxHeap();
+
+    for (let l = 0; l < n; l++) {
+        pq.push([getValue(l, n - 1), l, n - 1]);
+    }
+
+    let result = 0;
+
+    while (k--) {
+        let [value, l, r] = pq.pop();
+
+        result += value;
+
+        if (r - 1 >= l) {
+            pq.push([getValue(l, r - 1), l, r - 1]);
+        }
+    }
+
+    return result;
+};
