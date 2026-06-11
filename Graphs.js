@@ -813,3 +813,48 @@ var findCheapestPrice = function (n, flights, src, dst, k) {
 
     return minCost[dst] === Infinity ? -1 : minCost[dst]
 };
+
+
+/**
+ * @param {number[][]} edges
+ * @return {number}
+ */
+var assignEdgeWeights = function(edges) {
+    const MOD = 1_000_000_007n;
+    const n = edges.length + 1;
+    
+    const adj = Array.from({ length: n + 1 }, () => []);
+    for (const [u, v] of edges) {
+        adj[u].push(v);
+        adj[v].push(u);
+    }
+    
+    let maxDepth = 0;
+    const depth = new Array(n + 1).fill(-1);
+    const queue = [1];
+    depth[1] = 0;
+    
+    while (queue.length > 0) {
+        const node = queue.shift();
+        maxDepth = Math.max(maxDepth, depth[node]);
+        for (const neighbor of adj[node]) {
+            if (depth[neighbor] === -1) {
+                depth[neighbor] = depth[node] + 1;
+                queue.push(neighbor);
+            }
+        }
+    }
+    
+    const pow = (base, exp, mod) => {
+        let result = 1n;
+        base = base % mod;
+        while (exp > 0n) {
+            if (exp % 2n === 1n) result = result * base % mod;
+            base = base * base % mod;
+            exp /= 2n;
+        }
+        return result;
+    };
+    
+    return Number(pow(2n, BigInt(maxDepth - 1), MOD));
+};
