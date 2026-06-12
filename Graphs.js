@@ -858,3 +858,88 @@ var assignEdgeWeights = function(edges) {
     
     return Number(pow(2n, BigInt(maxDepth - 1), MOD));
 };
+
+
+/**
+ * @param {number[][]} edges
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+var assignEdgeWeights = function(edges, queries) {
+    const MOD = 1000000007n;
+    const n = edges.length + 1;
+    const LOG = Math.ceil(Math.log2(n + 1)) + 1;
+
+    const adj = Array.from({ length: n + 1 }, () => []);
+    for (const [u, v] of edges) {
+        adj[u].push(v);
+        adj[v].push(u);
+    }
+
+    const depth  = new Int32Array(n + 1).fill(-1);
+    const parent = new Int32Array(n + 1).fill(0);
+    depth[1] = 0;
+    const queue = [1];
+
+    for (let i = 0; i < queue.length; i++) {
+        const node = queue[i];
+        for (const nb of adj[node]) {
+            if (depth[nb] === -1) {
+                depth[nb]  = depth[node] + 1;
+                parent[nb] = node;
+                queue.push(nb);
+            }
+        }
+    }
+
+    const up = Array.from({ length: LOG }, () => new Int32Array(n + 1));
+    for (let v = 1; v <= n; v++) up[0][v] = parent[v];
+    for (let k = 1; k < LOG; k++) {
+        for (let v = 1; v <= n; v++) {
+            up[k][v] = up[k - 1][up[k - 1][v]];
+        }
+    }
+
+    
+    const lca = (u, v) => {
+        
+        if (depth[u] < depth[v]) [u, v] = [v, u];
+        let diff = depth[u] - depth[v];
+        for (let k = 0; k < LOG; k++) {
+            if ((diff >> k) & 1) u = up[k][u];
+        }
+        if (u === v) return u;
+        
+        for (let k = LOG - 1; k >= 0; k--) {
+            if (up[k][u] !== up[k][v]) {
+                u = up[k][u];
+                v = up[k][v];
+            }
+        }
+        return up[0][u];
+    };
+
+    
+    const maxPow = n + 1;
+    const pow2 = new Array(maxPow);
+    pow2[0] = 1n;
+    for (let i = 1; i < maxPow; i++) {
+        pow2[i] = pow2[i - 1] * 2n % MOD;
+    }
+
+    
+    const answer = new Array(queries.length);
+    for (let i = 0; i < queries.length; i++) {
+        const [u, v] = queries[i];
+        if (u === v) {
+            answer[i] = 0;
+            continue;
+        }
+        const l = lca(u, v);
+        const d = depth[u] + depth[v] - 2 * depth[l]; 
+        
+        answer[i] = Number(pow2[d - 1]);
+    }
+
+    return answer;
+};
