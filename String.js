@@ -298,7 +298,6 @@ var numberOfSpecialChars = function (word) {
     return count
 };
 
-
 var numberOfSpecialChars = function(word) {
     let lastSmall = new Array(26).fill(-1);
     let firstCapital = new Array(26).fill(-1);
@@ -328,4 +327,25 @@ var numberOfSpecialChars = function(word) {
     }
 
     return count;
+};
+
+var mapWordWeights = function(words, weights) {
+    let map = {}
+    for(let i =25; i>=0; i--){
+        map[i] = String.fromCharCode((97+25)-i)
+    }
+
+    let result = ""
+
+    for(let word of words){
+        let weight = 0
+        for(let i = 0; i<word.length; i++){
+            let index = word[i].charCodeAt() - 97
+            weight += weights[index]
+        }
+        let charIdx = weight % 26
+        result += map[charIdx]
+    }
+    
+    return result
 };
