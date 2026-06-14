@@ -404,3 +404,82 @@ for(let i = 0; i<test.length; i++){
 }
 
 console.log(res)
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number}
+ */
+var pairSum = function (head) {
+
+    let slow = head
+    let fast = head
+
+    while(fast && fast.next){
+        slow = slow.next
+        fast = fast.next.next
+    }
+
+    let mid = slow
+    let prev = null
+    let nextNode = null
+
+    while(mid){
+        nextNode = mid.next
+        mid.next = prev
+        prev = mid
+        mid = nextNode
+    }
+    
+    let result = 0
+    let start = head
+    
+    while(prev){
+        result = Math.max(result, prev.val + start.val)
+        start = start.next
+        prev = prev.next
+    }
+
+    return result
+
+};
+
+
+
+
+// var pairSum = function (head) {
+
+//     let sentinal = new ListNode()
+//     let orig = sentinal
+//     let prev = null
+//     let curr = head
+//     let n = 0
+//     while (curr) {
+//         n += 1
+//         orig.next = new ListNode(curr.val)
+//         orig = orig.next
+//         let temp = curr.next
+//         curr.next = prev
+//         prev = curr
+//         curr = temp
+//     }
+
+
+//     let l1 = prev
+//     let l2 = sentinal.next
+//     let ans = -Infinity
+    
+//     for (let i = 0; i < n / 2; i++) {
+//         ans = Math.max(l1.val + l2.val, ans)
+//         l1 = l1.next
+//         l2 = l2.next
+//     }
+
+//     return ans
+// };
