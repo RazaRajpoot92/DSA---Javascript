@@ -966,3 +966,42 @@ var maxTotalValue = function (nums, k) {
 
     return k * (max - min)
 };
+
+///
+
+/**
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var arrayRankTransform = function(arr) {
+    let n = arr.length;
+    let map = {};
+
+    for(let i =0; i<n; i++){
+        if(map[arr[i]] == undefined){
+             map[arr[i]] = [i]
+        }else{
+            map[arr[i]].push(i)
+        }
+           
+    }
+
+    arr.sort((a,b) => a-b);
+    let result = new Array(n).fill(-1)
+    let rank = 1;
+
+    for(let i =0; i<n; i++){
+        if(i>0 && arr[i] == arr[i-1]) continue;
+
+        for(let index of map[arr[i]]){
+           
+            result[index] = rank
+        }
+
+        rank++
+    }
+    
+
+
+    return result
+};
