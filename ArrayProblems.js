@@ -1005,3 +1005,33 @@ var arrayRankTransform = function(arr) {
 
     return result
 };
+
+
+var sequentialDigits = function(low, high) {
+    let q = []
+    for(let i = 1; i<9; i++){
+        q.push(i)
+    }
+
+    let result = [];
+
+    while(q.length){
+        let num = q.shift();
+
+        if(num >= low && num<=high ){
+            result.push(num);
+        }
+
+        let lastDigit = num % 10;
+        
+        if(lastDigit + 1 >=10) continue;
+
+        num = (num * 10) + lastDigit+1;
+
+        if(num <= high){
+            q.push(num)
+        }
+    }
+
+    return result;
+}; 
