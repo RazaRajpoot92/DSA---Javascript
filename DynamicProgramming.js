@@ -638,3 +638,55 @@ var canReach = function(s, minJump, maxJump) {
     return false
 };
 
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+
+ // I need to more understand it, I will do more practice on DP
+var subsequencePairCount = function(nums) {
+    const MOD = 1000000007;
+    const n = nums.length;
+
+    const dp = Array.from({ length: n + 1 }, () =>
+        Array.from({ length: 201 }, () =>
+            Array(201).fill(-1)
+        )
+    );
+
+    function gcd(a, b) {
+        while (b !== 0) {
+            let temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    function solve(i, first, second) {
+        if (i === n) {
+
+            const bothNonEmpty = first !== 0 && second !== 0;
+            const gcdsMatch = first === second;
+            return (bothNonEmpty && gcdsMatch) ? 1 : 0;
+        }
+
+        if (dp[i][first][second] !== -1) {
+            return dp[i][first][second];
+        }
+
+    
+        let skip = solve(i + 1, first, second);
+
+    
+        let take1 = solve(i + 1, gcd(first, nums[i]), second);
+
+        let take2 = solve(i + 1, first, gcd(second, nums[i]));
+
+        dp[i][first][second] = (skip + take1 + take2) % MOD;
+
+        return dp[i][first][second];
+    }
+
+    return solve(0, 0, 0);
+};
