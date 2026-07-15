@@ -1035,3 +1035,58 @@ var sequentialDigits = function(low, high) {
 
     return result;
 }; 
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+
+ var gcdOfOddEvenSums = function(n) {
+    
+    // n^2, n^2 + n => n * (n, n+1) and GCD of n, n+1 alsways be 1
+    return n
+};
+
+
+
+
+// var gcdOfOddEvenSums = function(n) {
+    
+//     let oddSum = n*n;
+//     let evenSum = (n*n) + n;
+
+//     return GCD(oddSum, evenSum)
+// };
+
+
+// function GCD(a,b){
+//     if(b == 0) return a;
+
+//     return GCD(b, a%b)
+// }
+
+
+
+
+// var gcdOfOddEvenSums = function(n) {
+    
+//     let oddSum = 0;
+//     let evenSum = 0;
+
+//     for(let i = 1; i<=n+n; i++){
+//         if(i%2==0){
+//             evenSum += i
+//         }else{
+//             oddSum += i
+//         }
+//     }
+
+//     return GCD(oddSum, evenSum)
+// };
+
+
+// function GCD(a,b){
+//     if(b == 0) return a;
+
+//     return GCD(b, a%b)
+// }
