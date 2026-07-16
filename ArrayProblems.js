@@ -1090,3 +1090,44 @@ var sequentialDigits = function(low, high) {
 
 //     return GCD(b, a%b)
 // }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var gcdSum = function (nums) {
+    let n = nums.length;
+    let prefixGcd = [];
+
+    let mx = 0;
+
+    for (let i = 0; i < n; i++) {
+        mx = Math.max(mx, nums[i]);
+
+        let gcd = GCD(mx, nums[i]);
+
+        prefixGcd.push(gcd);
+    }
+
+    prefixGcd.sort((a, b) => a - b);
+
+    let sum = 0;
+
+    let i = 0;
+    let j = n - 1;
+
+    while (i < j) {
+        sum += GCD(prefixGcd[i], prefixGcd[j]);
+        i++;
+        j--;
+    }
+
+    return sum
+};
+
+
+function GCD(a, b) {
+    if (b == 0) return a;
+
+    return GCD(b, a % b)
+}
