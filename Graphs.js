@@ -943,3 +943,53 @@ var assignEdgeWeights = function(edges, queries) {
 
     return answer;
 };
+
+
+let graph = [[0,1], [1,2],[2,0]]
+
+let adj = {}
+
+for(let [u,v] of graph){
+    if(adj[u] == undefined) adj[u] = [];
+    if(adj[v] == undefined) adj[v] = [];
+    
+    adj[u].push(v)
+}
+
+console.log(adj)
+
+let V = 3
+
+let visited = new Array(V).fill(false)
+let inRecursion = new Array(V).fill(false)
+
+
+
+
+function isCycle(u,adj,visited,inRecursion){
+    visited[u] = true;
+    inRecursion[u] = true;
+    
+    for(let v of adj[u]){
+        if(visited[v] == false){
+            
+            if( isCycle(v,adj,visited,inRecursion) ){
+                return true;
+            }
+        }
+        
+        else if(inRecursion[v] == true) return true
+    }
+    
+    inRecursion[u] = false;
+    return false;
+}
+
+
+for(let i = 0; i<V; i++){
+    
+    if(!visited[i] && isCycle(i,adj,visited,inRecursion)){
+        console.log("cycle is detected")
+    }
+    
+}
