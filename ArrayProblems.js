@@ -1131,3 +1131,27 @@ function GCD(a, b) {
 
     return GCD(b, a % b)
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findGCD = function(nums) {
+    
+    let min = Infinity;
+    let max = 0;
+
+    for(let i = 0; i< nums.length; i++){
+        min = Math.min(min, nums[i]);
+        max = Math.max(max, nums[i]);
+    }
+
+    return GCD(min, max)
+};
+
+
+function GCD(a,b){
+    if(b == 0)return a;
+
+    return GCD(b, a%b)
+}
