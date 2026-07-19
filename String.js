@@ -349,3 +349,38 @@ var mapWordWeights = function(words, weights) {
     
     return result
 };
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var smallestSubsequence = function (s) {
+    let n = s.length;
+    let lastIdx = new Array(26).fill(-1);
+    let used = new Array(26).fill(false);
+    let stack = [];
+
+    for (let i = 0; i < n; i++) {
+        let idx = s[i].charCodeAt(0) - 97;
+        lastIdx[idx] = i
+    }
+
+    for (let i = 0; i < n; i++) {
+        let chIdx = s[i].charCodeAt(0) - 97
+
+
+        if (used[chIdx] == true) continue;
+
+        while (stack.length && stack[stack.length - 1].charCodeAt(0) - 97 > chIdx && lastIdx[stack[stack.length - 1].charCodeAt(0) - 97] > i) {
+            used[stack[stack.length - 1].charCodeAt(0) - 97] = false;
+            stack.pop()
+        }
+
+        stack.push(s[i])
+        used[chIdx] = true
+    }
+
+
+
+    return stack.join("")
+};
