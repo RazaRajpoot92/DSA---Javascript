@@ -1155,3 +1155,40 @@ function GCD(a,b){
 
     return GCD(b, a%b)
 }
+
+/**
+ * @param {number[][]} grid
+ * @param {number} k
+ * @return {number[][]}
+ */
+var shiftGrid = function(grid, k) {
+
+    let n = grid.length;
+    let m = grid[0].length;
+
+    for(let i=0; i<k; i++){
+        shift(grid, n, m)
+    }
+
+    return grid
+};
+
+function shift(grid, n, m){
+
+    let temp = grid[0][0]
+
+    for(let i =0; i<n; i++){
+        let j = i == 0? 1:0
+        for(j; j<m; j++){
+            
+            let currTemp = grid[i][j];
+            grid[i][j] = temp;
+            temp = currTemp;
+           
+        }
+    }
+
+    grid[0][0] = temp;
+
+   
+}
