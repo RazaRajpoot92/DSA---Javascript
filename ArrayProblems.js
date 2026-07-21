@@ -1187,7 +1187,7 @@ function shift(grid, n, m){
            
         }
     }
-
+  
     grid[0][0] = temp;
 
    

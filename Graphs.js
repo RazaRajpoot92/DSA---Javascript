@@ -993,3 +993,55 @@ for(let i = 0; i<V; i++){
     }
     
 }
+let graph = [[0,3], [0,2], [2,1], [2,3], [3,1], [5,1], [5,4], [1,4]];
+
+let inDegree = new Array(6).fill(0)
+
+
+let adj = {}
+
+for(let [u,v] of graph){
+    
+    if(adj[u] == undefined) adj[u] = []
+    if(adj[v] == undefined) adj[v] = []
+    
+    adj[u].push(v)
+}
+
+console.log(adj)
+
+for(let u = 0; u<6; u++){
+    for(let v of adj[u]){
+        inDegree[v]++
+    }
+}
+
+console.log(inDegree)
+
+
+let queue = []
+
+for(let i = 0; i<6; i++){
+    if(inDegree[i] == 0) queue.push(i)
+}
+
+console.log(queue)
+
+let result = []
+while(queue.length){
+    let u = queue.shift();
+    result.push(u)
+    
+    for(let v of adj[u]){
+        inDegree[v]--;
+        
+        if(inDegree[v] == 0){
+            queue.push(v)
+        }
+    }
+}
+
+console.log(result)
+
+
+
