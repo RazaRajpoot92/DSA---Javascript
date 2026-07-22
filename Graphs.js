@@ -1094,5 +1094,48 @@ while(front < queue.length){
 if(count == V) console.log(false)
 else console.log(true)
 
+/**
+ * @param {number[][]} isConnected
+ * @return {number}
+ */
+var findCircleNum = function (isConnected) {
+    let n = isConnected.length;
+    let adj = {};
+
+    for (let i = 0; i < n; i++) {
+        if (adj[i + 1] == undefined) adj[i + 1] = []
+
+        for (let j = 0; j < n; j++) {
+            if (i == j) continue;
+
+            if (isConnected[i][j] == 1) {
+                adj[i + 1].push(j + 1)
+            }
+        }
+    }
+
+    let visited = new Array(n + 1).fill(false)
+    let count = 0
+    for (let i = 1; i <= n; i++) {
+        if (visited[i] == false) {
+            DFS(i, adj, visited);
+            count++
+        }
+    }
+
+    return count
+};
+
+function DFS(u, adj, visited) {
+
+    visited[u] = true;
+
+    for (let v of adj[u]) {
+        if (visited[v] === false) {
+            DFS(v, adj, visited)
+        }
+    }
+}
+
 
 
