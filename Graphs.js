@@ -1043,5 +1043,56 @@ while(queue.length){
 
 console.log(result)
 
+let graph = [[0,1], [0,2], [1,3], [2,3], [3,4], [4,5]]
+
+let adj = {}
+for(let [u,v] of graph){
+    if(adj[u] == undefined) adj[u] = []
+    if(adj[v] == undefined) adj[v]= []
+    
+    adj[u].push(v)
+}
+
+console.log(adj)
+
+let V = 6;
+
+let inDegree = new Array(V).fill(0);
+
+for(let u in adj){
+    for(let v of adj[u]){
+        inDegree[v]++
+    }
+}
+
+
+let queue = []
+
+for(let i =0; i<inDegree.length; i++){
+    if(inDegree[i] == 0) queue.push(i)
+}
+
+
+let front = 0
+
+let count = 0;
+while(front < queue.length){
+    let u = queue[front++]
+   
+    console.log(u)
+    count++
+    
+    for(let v of adj[u]){
+        inDegree[v]--
+        
+        if(inDegree[v] == 0){
+            queue.push(v)
+        }
+    }
+}
+
+if(count == V) console.log(false)
+else console.log(true)
+
 
 
