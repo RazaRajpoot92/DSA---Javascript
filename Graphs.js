@@ -1137,5 +1137,50 @@ function DFS(u, adj, visited) {
     }
 }
 
+var findCircleNum = function (isConnected) {
+   let n =  isConnected.length;
+   let adj = {};
+
+   for(let i =0; i<n; i++){
+        adj[i+1] = []
+        for(let j = 0; j<n; j++){
+            if(i == j) continue;
+
+            if(isConnected[i][j] == 1){
+                adj[i+1].push(j+1)
+            }
+        }
+   }
+
+   let visited = new Array(n+1).fill(false);
+   let count = 0;
+
+   for(let i = 1; i<=n; i++){
+        if(visited[i] == false){
+            bfs(i, adj, visited);
+            count++
+        }
+   }
+
+   return count;
+};
+
+function bfs(start, adj, visited){
+    let queue = []
+    queue.push(start)
+    visited[start] = true;
+
+    while(queue.length){
+        let u = queue.shift();
+        visited[u] = true
+
+        for(let v of adj[u]){
+            if(!visited[v]){
+                queue.push(v)
+            }
+        }
+    }
+}
+
 
 
