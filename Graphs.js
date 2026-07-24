@@ -1184,3 +1184,44 @@ function bfs(start, adj, visited){
 
 
 
+var findOrder = function (numCourses, prerequisites) {
+    let V = numCourses;
+    let adj = {};
+    let inDegree = new Array(V).fill(0);
+
+    for (let [u, v] of prerequisites) {
+
+        if (adj[v] == undefined) adj[v] = [];
+
+        adj[v].push(u)
+        inDegree[u]++
+    }
+
+    
+    let queue = [];
+
+    for (let i = 0; i < V; i++) {
+        if (inDegree[i] == 0) queue.push(i)
+    }
+
+    let result = []
+    while (queue.length) {
+        let u = queue.shift();
+        result.push(u);
+
+        for (let v of adj[u] || []) {
+            inDegree[v]--
+            if (inDegree[v] == 0) {
+                queue.push(v)
+            }
+        }
+    }
+
+
+    if (result.length == V) {
+        return result
+    }
+
+
+    return []
+};
