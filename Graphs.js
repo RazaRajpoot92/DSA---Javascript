@@ -1225,3 +1225,48 @@ var findOrder = function (numCourses, prerequisites) {
 
     return []
 };
+
+let graph = [ [1, 2], [2, 3],[3, 4],[4, 5],[5, 1]]
+let adj = {};
+
+for(let [u,v] of graph){
+    if(adj[u] == undefined) adj[u] = [];
+    if(adj[v] == undefined) adj[v] = [];
+    
+    adj[u].push(v);
+}
+
+let colors = new Array(5).fill(-1);
+
+let isBipartite = true
+for(let i = 1; i<5; i++){
+    
+    if(colors[i] == -1){
+        if(dfs(i, adj, colors, 1) == false){
+            isBipartite = false;
+            break;
+        }
+    }
+}
+
+console.log(isBipartite)
+
+
+function dfs(u, adj, colors, currColor){
+    colors[u] = currColor;
+    
+    for(let v of adj[u] || []){
+        if(colors[u] == colors[v]){
+            return false;
+        }
+        
+        if(colors[v]==-1){
+            let colr = 1 - currColor;
+            
+            if(dfs(v, adj, colors, colr) == false){
+                return false
+            }
+        }
+    }
+    return true;
+}
