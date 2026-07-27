@@ -1270,3 +1270,25 @@ function dfs(u, adj, colors, currColor){
     }
     return true;
 }
+
+function BFS(u, graph, colors, currColor) {
+    let queue = [];
+    queue.push(u);
+    colors[u] = currColor;
+
+    while (queue.length) {
+        let u = queue.shift();
+
+        for (let v of graph[u] || []) {
+            if (colors[v] == colors[u]) {
+                return false;
+            } else if (colors[v] == -1) {
+                let clr = 1 - colors[u];
+                colors[v] = clr;
+                queue.push(v);
+            }
+        }
+    }
+
+    return true;
+}
