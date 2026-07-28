@@ -384,3 +384,75 @@ var smallestSubsequence = function (s) {
 
     return stack.join("")
 };
+
+
+var smallestPalindrome = function(s) {
+    let n = s.length;
+    if(n == 1) return s;
+
+    let alphaFreq = new Array(26).fill(0);
+
+    for(let i =0; i<n; i++){
+        let idx = s[i].charCodeAt(0) - 97
+        alphaFreq[idx]++
+    }
+
+    let m = ""
+    
+    for(let i =0; i<26; i++){
+        if(alphaFreq[i]%2 !== 0){
+            m = String.fromCharCode(i+97);
+           alphaFreq[i]--
+            break;
+        }
+    }
+
+
+
+    let lexAlpha = "";
+    for(let i = 0; i<26; i++){
+        if(alphaFreq[i] > 0){
+            let ch = String.fromCharCode(i + 97)
+            for(let j = 0; j<alphaFreq[i]; j++){
+                lexAlpha+=ch
+            }
+        }
+    }
+   
+    let s1 = ""
+    let s2 = []
+    let s1Try = true
+
+    for(let i =0; i<n; i++){
+
+        if(s1Try && lexAlpha[i] !== undefined){
+            s1 += lexAlpha[i]
+        }else{
+            s2.push(lexAlpha[i]) 
+        }
+
+        s1Try = !s1Try
+        
+    }
+
+    reverse(s2)
+
+    let ans = m == ""? s1 + s2.join(""):s1 + m + s2.join("")
+
+    return ans
+};
+
+
+function reverse(arr){
+    let i =0; 
+    let j = arr.length - 1;
+
+    while(i<j){
+        let temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp;
+
+        i++;
+        j--;
+    }
+}
