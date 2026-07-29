@@ -1292,3 +1292,35 @@ function BFS(u, graph, colors, currColor) {
 
     return true;
 }
+
+let elem = [0,1,2,3]
+let parent = [0,1,2,3]
+
+
+function find(i, parent){
+    if(i == parent[i]){
+        return i;
+    }
+    
+    return find(parent[i], parent)
+}
+
+
+let par =find(2, parent);
+
+console.log(par)
+
+function union(a,b, parent){
+    let a_parent = find(a, parent);
+    let b_parent = find(b, parent);
+    
+    if(a_parent !== b_parent){
+        parent[b_parent] = a_parent;
+    }
+}
+
+union(0,2, parent)
+
+let newP = find(2, parent);
+
+console.log(newP)
