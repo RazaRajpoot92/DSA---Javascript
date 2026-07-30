@@ -456,3 +456,54 @@ function reverse(arr){
         j--;
     }
 }
+
+/**
+ * @param {string} word
+ * @return {number}
+ */
+var minimumPushes = function(word) {
+    let n = word.length;
+    let result = 0;
+
+    let add = 0;
+    let count = 0;
+    for(let i =0; i<n; i++){
+        
+        
+        if(count == 8){
+            add++;
+            count = 0;
+        }
+        count++
+
+        result += add + 1
+    }
+
+    return result;
+};
+
+
+
+
+// var minimumPushes = function(word) {
+//     let result = 0;
+
+//     let start = 2;
+//     let add = 1
+
+
+//     for(let c of word){
+//         if(start>9){
+//             start = 2
+//             add++
+//         }
+        
+//         result += add
+
+//         start++
+
+//     }
+    
+
+//     return result;
+// };
