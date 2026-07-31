@@ -507,3 +507,37 @@ var minimumPushes = function(word) {
 
 //     return result;
 // };
+
+/**
+ * @param {string} word
+ * @return {number}
+ */
+var minimumPushes = function(word) {
+    let freq = new Array(26).fill(0);
+
+    for(let s of word){
+        let idx = s.charCodeAt(0) - 97
+        freq[idx]++
+    }
+    freq.sort((a,b) => b-a)
+    console.log(freq)
+
+    let ans = 0;
+    let mul = 1;
+    let count = 0;
+
+    for(let i = 0; i<26; i++){
+
+        if(freq[i] == 0) break;
+
+        if(count == 8){
+            mul++;
+            count=0
+        }
+        count++
+        ans += freq[i] * mul
+    }
+
+    return ans
+    
+};
