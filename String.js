@@ -541,3 +541,36 @@ var minimumPushes = function(word) {
     return ans
     
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countValidPrefixes = function(s) {
+    let preS = "";
+    let count = 0;
+    for(let ch of s){
+        preS += ch;
+
+        if(isValid(preS)) count++
+    }
+
+    console.log(count);
+
+    return count
+};
+
+function isValid(s){
+    let zeroCount = 0;
+    let oneCount = 0;
+
+    for(let ch of s){
+        if(ch == "0"){
+            zeroCount++;
+        }else{
+            oneCount++;
+        }
+    }
+
+    return Math.abs(zeroCount - oneCount) <= 1
+}
