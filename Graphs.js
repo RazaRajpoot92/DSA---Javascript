@@ -1324,3 +1324,31 @@ union(0,2, parent)
 let newP = find(2, parent);
 
 console.log(newP)
+
+// find (path compression)
+
+function find(i, parent){
+    if(i == parent[i]) return i;
+
+    return parent[i] = find(parent[i], parent)
+}
+
+// union by rank
+
+function union(a,b, parent, rank){
+    let a_parent = find(a, parent);
+    let b_parent = find(b, parent);
+    
+    if(a_parent == b_parent){
+        return;
+    }
+
+    if(rank[a_parent] > rank[b_parent]){
+        parent[b_parent] = a_parent; 
+    }else if(rank[a_parent] < rank[b_parent]){
+        parent[a_parent] = b_parent;
+    }else{
+        parent[b_parent] = a_parent;
+        rank[a_parent] += 1;
+    }
+}
