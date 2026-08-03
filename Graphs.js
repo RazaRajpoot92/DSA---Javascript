@@ -1424,3 +1424,36 @@ for(let u =0; u<V; u++){
 }
 
 console.log(isCycle)
+
+
+function DSU(v){
+    this.parent = [];
+    this.rank = [];
+    
+    for(let i =0; i<v; i++){
+        this.parent.push(i);
+        this.rank.push(0)
+    }
+}
+
+DSU.prototype.find = function(x){
+    if(x === this.parent[x]) return x;
+    
+    return this.parent[x] = this.find(this.parent[x])
+}
+
+DSU.prototype.union = function(x,y){
+    let parent_x = this.find(x);
+    let parent_y = this.find(y);
+    
+    if(parent_x === parent_y) return;
+    
+    if(this.rank[parent_x] > this.rank[parent_y]){
+        this.parent[parent_y] = parent_x
+    }else if(this.rank[parent_x] < this.rank[parent_y]){
+        this.parent[parent_x] = parent_y;
+    }else {
+        this.parent[parent_y] = parent_x;
+        this.rank[parent_x]++
+    }
+}
