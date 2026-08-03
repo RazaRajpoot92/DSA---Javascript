@@ -690,3 +690,37 @@ var subsequencePairCount = function(nums) {
 
     return solve(0, 0, 0);
 };
+var stoneGameIII = function(stoneValue) {
+    const n = stoneValue.length;
+    const dp = new Array(n + 1).fill(-1);
+
+    function solve(i) {
+        if (i === n) return 0;
+
+        if (dp[i] !== -1) return dp[i];
+
+        dp[i] = stoneValue[i] - solve(i + 1);
+
+        if (i + 1 < n) {
+            dp[i] = Math.max(
+                dp[i],
+                stoneValue[i] + stoneValue[i + 1] - solve(i + 2)
+            );
+        }
+
+        if (i + 2 < n) {
+            dp[i] = Math.max(
+                dp[i],
+                stoneValue[i] + stoneValue[i + 1] + stoneValue[i + 2] - solve(i + 3)
+            );
+        }
+
+        return dp[i];
+    }
+
+    const diff = solve(0);
+
+    if (diff < 0) return "Bob";
+    if (diff > 0) return "Alice";
+    return "Tie";
+};
