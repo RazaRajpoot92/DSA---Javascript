@@ -1352,3 +1352,75 @@ function union(a,b, parent, rank){
         rank[a_parent] += 1;
     }
 }
+
+
+
+class DSU{
+    constructor(v){
+        this.parent = [];
+        this.rank = [];
+        this.init(v)
+    }
+    
+    init(v){
+        for(let i =0; i<v; i++){
+            this.parent.push(i);
+            this.rank.push(0)
+        }
+    }
+    
+    find(x){
+        if(x == this.parent[x]) return x;
+        
+        return this.parent[x] = this.find(this.parent[x])
+    }
+    
+    union(x,y){
+        let x_parent = this.find(x);
+        let y_parent = this.find(y);
+        
+        if(x_parent == y_parent) return;
+        
+        if(this.rank[x_parent] > this.rank[y_parent]){
+            this.parent[y_parent] = x_parent;
+        }else if(this.rank[x_parent] < this.rank[y_parent]){
+            this.parent[x_parent] = y_parent;
+        }else {
+            this.parent[y_parent] = x_parent;
+            this.rank[x_parent]++
+        }
+    }
+    
+}
+
+let V = 3
+
+let adj = {
+    0:[1,2],
+    1:[0,2],
+    2:[0,1]
+}
+
+let dsu = new DSU(V)
+
+let isCycle = false
+for(let u =0; u<V; u++){
+    for(let v of adj[u]){
+        
+        if(u<v){
+            let parent_v = dsu.find(v);
+            let parent_u = dsu.find(u);
+            
+            if(parent_v == parent_u){
+                isCycle = true;
+                break;
+            }
+            
+            dsu.union(u,v)
+        }
+    }
+    
+    if(isCycle == true) break;
+}
+
+console.log(isCycle)
