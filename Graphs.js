@@ -1457,3 +1457,76 @@ DSU.prototype.union = function(x,y){
         this.rank[parent_x]++
     }
 }
+
+var remainingMethods = function(n, k, invocations) {
+    let adj = {};
+
+    for(let [u,v] of invocations){
+        if(adj[u] == undefined) adj[u] = [];
+        if(adj[v] == undefined) adj[v] = [];
+        adj[u].push(v)
+    }
+
+    let sus = new Array(n).fill(false)
+    sus[k] = true;
+    
+    let visited = new Array(n).fill(false);
+    let susArr = []
+    susArr.push(k)
+    dfsSus(k, adj, visited, sus, susArr);
+    
+    
+    visited = new Array(n).fill(false);
+    for(let i=0; i<n; i++){
+        if(sus[i] == false && visited[i] == false){
+            dfs(i, adj, visited, sus)
+        }
+    }
+    let isEdge = false;
+
+    for(let v of susArr){
+        if(sus[v] == false) isEdge = true;
+    }
+
+    if(isEdge){
+        for(let v of susArr){
+        sus[v] = false
+        }
+    }
+    
+    
+    let result = []
+    for(let i =0; i<n; i++){
+        if(sus[i] == false) result.push(i)
+    }
+
+
+    return result
+};
+
+
+function dfsSus(u, adj, visited, sus, susArr){
+    visited[u] = true;
+    
+    for(let v of adj[u] || []){
+
+        sus[v] = true;
+        susArr.push(v)
+        if(visited[v] === false){
+            dfsSus(v, adj, visited, sus, susArr)
+        }
+    }
+}
+
+
+function dfs(u, adj, visited, sus){
+    visited[u] = true;
+
+    for(let v of adj[u] || []){
+        sus[v] = false;
+        if(visited[v] == false){
+            dfs(v, adj, visited, sus)
+        }
+    }
+}
+
