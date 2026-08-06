@@ -1224,3 +1224,21 @@ var maximumProduct = function(nums) {
 
     return ans;
 };
+
+var smallestNumber = function(n, t) {
+    
+  while(true){
+    let num = n
+    let product = 1;
+    while(num>0){
+        let digit = num%10;
+        num = Math.floor(num/10);
+        product *= digit;
+    }
+
+    if(product%t == 0) return n;
+
+    n++
+
+  }  
+};
