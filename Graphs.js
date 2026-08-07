@@ -1325,8 +1325,11 @@ let newP = find(2, parent);
 
 console.log(newP)
 
-// find (path compression)
 
+
+// DSU by functions
+
+// find (path compression)
 function find(i, parent){
     if(i == parent[i]) return i;
 
@@ -1334,7 +1337,6 @@ function find(i, parent){
 }
 
 // union by rank
-
 function union(a,b, parent, rank){
     let a_parent = find(a, parent);
     let b_parent = find(b, parent);
@@ -1354,7 +1356,7 @@ function union(a,b, parent, rank){
 }
 
 
-
+// DSU by Class style
 class DSU{
     constructor(v){
         this.parent = [];
@@ -1425,7 +1427,7 @@ for(let u =0; u<V; u++){
 
 console.log(isCycle)
 
-
+// DSU by Prototype style
 function DSU(v){
     this.parent = [];
     this.rank = [];
