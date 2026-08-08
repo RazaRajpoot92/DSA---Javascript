@@ -574,3 +574,49 @@ function isValid(s){
 
     return Math.abs(zeroCount - oneCount) <= 1
 }
+
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number[]}
+ */
+var validSequence = function(word1, word2) {
+    let n = word1.length;
+    let m = word2.length;
+
+    let rightSideMatchChar = new Array(n).fill(0);
+
+    let i = n-1;
+    let j = m-1;
+    let matchCount = 0;
+    while(i>=0){
+        if( j>=0 && word1[i] == word2[j]){
+            matchCount++;
+            j--;
+        }
+
+        rightSideMatchChar[i] = matchCount;
+        i--;
+    }
+
+    let canChange = true;
+    let result = [];
+    i =0;
+    j =0;
+
+    while(i<n && j<m){
+        
+        if(word1[i] == word2[j]){
+            result.push(i);
+            j++;
+        }else if(canChange && i+1 < n && rightSideMatchChar[i+1] >= m-j-1){
+            result.push(i);
+            j++;
+            canChange = false;
+        }
+
+        i++;
+    }
+    
+    return  j == m?  result : [];
+};
