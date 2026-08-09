@@ -724,3 +724,78 @@ var stoneGameIII = function(stoneValue) {
     if (diff > 0) return "Alice";
     return "Tie";
 };
+
+/**
+ * @param {number[]} piles
+ * @return {number}
+ */
+
+var stoneGameII = function(piles) {
+
+    const n = piles.length;
+
+    const t = Array.from(
+        { length: 2 },
+        () => Array.from(
+            { length: n + 1 },
+            () => new Array(n + 1).fill(-1)
+        )
+    );
+
+    function solveForAlice(person, i, M) {
+
+        if (i >= n) {
+            return 0;
+        }
+
+        if (t[person][i][M] !== -1) {
+            return t[person][i][M];
+        }
+
+        let result;
+
+        if (person === 1) {
+            
+            result = -Infinity;
+        } else {
+            
+            result = Infinity;
+        }
+
+        let stones = 0;
+
+        for (let x = 1; x <= Math.min(2 * M, n - i); x++) {
+
+            stones += piles[i + x - 1];
+
+            if (person === 1) {
+                // Alice's turn
+                result = Math.max(
+                    result,
+                    stones + solveForAlice(
+                        0,
+                        i + x,
+                        Math.max(M, x)
+                    )
+                );
+
+            } else {
+                // Bob's turn
+                result = Math.min(
+                    result,
+                    solveForAlice(
+                        1,
+                        i + x,
+                        Math.max(M, x)
+                    )
+                );
+            }
+        }
+
+        t[person][i][M] = result;
+
+        return result;
+    }
+
+    return solveForAlice(1, 0, 1);
+};
