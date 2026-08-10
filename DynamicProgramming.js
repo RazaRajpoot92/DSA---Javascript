@@ -799,3 +799,30 @@ var stoneGameII = function(piles) {
 
     return solveForAlice(1, 0, 1);
 };
+
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+
+var winnerSquareGame = function(n) {
+
+    const dp = new Array(n + 1).fill(false);
+
+
+    for (let i = 1; i <= n; i++) {
+
+        for (let j = 1; j * j <= i; j++) {
+
+            const remaining = i - j * j;
+
+            if (dp[remaining] === false) {
+                dp[i] = true;
+                break;
+            }
+        }
+    }
+
+    return dp[n];
+};
