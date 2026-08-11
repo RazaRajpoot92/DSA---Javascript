@@ -1326,3 +1326,25 @@ function gcd(a, b) {
     }
     return a;
 }
+
+
+var missingInteger = function(nums) {
+    let n = nums.length;
+    let set = new Set(nums);
+    
+    let currPrefix = nums[0];
+
+    for(let i =1; i<n; i++){
+        if(nums[i] == (nums[i-1] + 1)){
+            currPrefix += nums[i]
+        }else{
+            break;
+        }
+    }
+
+    while(set.has(currPrefix)){
+        currPrefix++
+    }
+
+    return currPrefix
+};
