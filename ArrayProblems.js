@@ -1348,3 +1348,26 @@ var missingInteger = function(nums) {
 
     return currPrefix
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxAbsoluteSum = function(nums) {
+    
+    let currMinSub = nums[0];
+    let minSub = nums[0];
+    let currMaxSub = nums[0];
+    let maxSub = nums[0];
+
+    for(let i =1; i<nums.length; i++){
+
+        currMinSub =  Math.min(nums[i], currMinSub + nums[i]);
+        minSub = Math.min(currMinSub, minSub);
+
+        currMaxSub = Math.max(nums[i], currMaxSub + nums[i]);
+        maxSub = Math.max(currMaxSub, maxSub)
+    }
+
+    return Math.max(Math.abs(minSub), maxSub)
+};
