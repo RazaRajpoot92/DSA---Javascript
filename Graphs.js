@@ -1532,3 +1532,50 @@ function dfs(u, adj, visited, sus){
     }
 }
 
+// var shortestPathBinaryMatrix = function(grid) {
+
+//     if(grid[0][0] == 1) return -1
+
+//     let n = grid.length;
+//     let m = grid[0].length;
+
+//     let directions = [[-1, 0], [1,0], [0,-1], [0,1], [-1,1], [-1,-1], [1,1], [1,-1]];
+
+//     let result = Array.from({length:m}, ()=> new Array(n).fill(Infinity));
+//     let pq = new MinPriorityQueue();
+//     pq.push([0, [0,0]])
+//     result[0][0] = 0;
+//     while(pq.size()){
+
+//         let [dist, node] = pq.dequeue();
+        
+//         if(dist > result[node[0], node[1]]) continue;
+
+//         for(let dir of directions){
+//             let x_ = node[0] + dir[0];
+//             let y_ = node[1] + dir[1];
+
+//             let d = 1;
+
+//             if(isValid(x_, y_, n, m) && grid[x_][y_] ==0 && dist + d < result[x_][y_]){
+                
+//                 result[x_][y_] = dist + d;
+//                 pq.push([dist + d, [x_, y_]]);
+//             }
+//         }
+
+
+//     }
+
+//     if(result[n-1][m-1] == Infinity) return -1
+
+//     return result[n-1][m-1] + 1
+
+    
+// };
+
+// function isValid(x, y, n,m){
+//     return x >=0 && x<n && y>=0 && y<m
+// }
+
+
