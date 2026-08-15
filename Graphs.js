@@ -1577,5 +1577,82 @@ function dfs(u, adj, visited, sus){
 // function isValid(x, y, n,m){
 //     return x >=0 && x<n && y>=0 && y<m
 // }
+/**
+ * @param {number[][]} heights
+ * @return {number}
+ */
+var minimumEffortPath = function (heights) {
+
+    let directions = [
+        [-1, 0],
+        [0, 1],
+        [1, 0],
+        [0, -1]
+    ];
+
+    let n = heights.length;        // rows
+    let m = heights[0].length;     // columns
+
+    let distance = Array.from(
+        { length: n },
+        () => new Array(m).fill(Infinity)
+    );
+
+    // Priority is the effort (element[0])
+    let pq = new MinPriorityQueue();
+
+    distance[0][0] = 0;
+
+    pq.enqueue([0, [0, 0]]);
+
+    while (pq.size() > 0) {
+
+        let [dist, node] = pq.dequeue();
+
+
+        let x = node[0];
+        let y = node[1];
+
+        // Destination
+        // if (x === n - 1 && y === m - 1) {
+        //     return dist;
+        // }
+
+        for (let dir of directions) {
+
+            let x_ = x + dir[0];
+            let y_ = y + dir[1];
+
+            if (isSafe(x_, y_, n, m)) {
+
+                let difference = Math.abs(
+                    heights[x][y] - heights[x_][y_]
+                );
+
+                let maxDiff = Math.max(dist, difference);
+
+                if (maxDiff < distance[x_][y_]) {
+
+                    distance[x_][y_] = maxDiff;
+
+                    pq.enqueue([
+                        maxDiff,
+                        [x_, y_]
+                    ]);
+                }
+            }
+        }
+    }
+
+    return distance[n - 1][m - 1];
+};
+
+
+function isSafe(x, y, n, m) {
+    return x >= 0 &&
+        x < n &&
+        y >= 0 &&
+        y < m;
+}
 
 

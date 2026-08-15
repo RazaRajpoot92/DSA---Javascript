@@ -87,7 +87,6 @@ class Game{
 
     battle(attacker, opponent){
         
-        
         if(attacker.health <= 0){
             
             console.log(`${opponent.name} killed ${attacker.name}`)
@@ -103,7 +102,6 @@ class Game{
         }
 
         console.log( `${attacker.name} attacked on ${opponent.name}`)
-
 
         this.attack(attacker, opponent)
         this.battle(opponent, attacker)
