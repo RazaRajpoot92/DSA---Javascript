@@ -1655,4 +1655,34 @@ function isSafe(x, y, n, m) {
         y < m;
 }
 
+function bellmanford(){
+let dist = new Array(V).fill(1e8);
+        dist[src] = 0;
+        for(let i= 1; i<=V-1; i++){
+            
+            for(let edge of edges){
+                let u = edge[0];
+                let v = edge[1];
+                let w = edge[2];
+                
+                if(dist[u] !== 1e8 && dist[u] + w < dist[v]){
+                    dist[v] = dist[u] + w;
+                }
+            }
+            
+        }
+        
+        for(let edge of edges){
+            
+            let u = edge[0];
+            let v = edge[1];
+            let w = edge[2];
+            
+            if(dist[u] !== 1e8 && dist[u] + w < dist[v]){
+                return [-1];
+            }
+        }
+        
+        return dist;
 
+}
