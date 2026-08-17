@@ -483,3 +483,39 @@ var pairSum = function (head) {
 
 //     return ans
 // };
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function(head) {
+    let s = head;
+    let f = head;
+
+    while(f !== null && f.next !== null){
+        s = s.next;
+        f = f.next.next;
+
+        if(s == f) break;
+    }
+
+    if(f == null || f.next == null) return null;
+
+    let n1 = head;
+    
+    while(n1 !== f){
+        n1 = n1.next;
+        f = f.next;
+    }
+
+    return n1
+};
