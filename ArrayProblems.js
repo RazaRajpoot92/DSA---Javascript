@@ -1371,3 +1371,42 @@ var maxAbsoluteSum = function(nums) {
 
     return Math.max(Math.abs(minSub), maxSub)
 };
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var largestInteger = function(nums, k) {
+    let n = nums.length;
+    if(n == k){
+        let max = -1;
+
+        nums.map((num)=>{
+            max = Math.max(num, max)
+        })
+
+        return max
+    }
+    let map = {}
+    for(let i =0; i<=n-k; i++){
+        for(let j = i; j<i+k; j++){
+            if(map[nums[j]] === undefined) map[nums[j]] = 0
+
+            map[nums[j]]++
+        }
+    }
+
+    let ans = -1
+
+    for(let key in map){
+        
+        
+        if(map[key] == 1){
+        
+            ans = Math.max(ans, Number(key) )
+        }
+    }
+
+    return ans
+};
