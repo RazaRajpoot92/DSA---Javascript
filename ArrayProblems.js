@@ -1410,3 +1410,46 @@ var largestInteger = function(nums, k) {
 
     return ans
 };
+
+/**
+ * @param {number} n
+ * @param {number[][]} reservedSeats
+ * @return {number}
+ */
+var maxNumberOfFamilies = function(n, reservedSeats) {
+
+    let map = {};
+    let seats = [[2, 3, 4, 5], [4, 5, 6, 7], [6, 7, 8, 9]];
+
+    for(let revSeat of reservedSeats){
+        let row = revSeat[0];
+        let seat = revSeat[1];
+
+        if(map[row] == undefined) map[row] = new Set();
+
+        map[row].add(seat)
+    }
+
+    let result = (n - Object.keys(map).length) * 2;
+
+    for(let key in map){
+        let row = key;
+        let revSeats = map[key];
+        
+        function has(ele) { 
+            return !revSeats.has(ele)
+        } 
+
+        let groupA = has(2) && has(3) && has(4) && has(5);
+        let groupB = has(4) && has(5) && has(6) && has(7);
+        let groupC = has(6) && has(7) && has(8) && has(9);
+        
+        if(groupA && groupC){
+            result += 2;
+        }else if (groupA || groupB || groupC){
+            result += 1;
+        }
+    }
+
+   return result;
+};
