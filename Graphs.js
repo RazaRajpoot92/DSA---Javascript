@@ -1686,3 +1686,51 @@ let dist = new Array(V).fill(1e8);
         return dist;
 
 }
+
+
+
+class Solution {
+    spanningTree(V, edges) {
+        let adj = {};
+        
+        for(let [u,v,w] of edges){
+            
+            if(adj[u] == undefined) adj[u] = [];
+            if(adj[v] == undefined) adj[v] = [];
+            
+            adj[u].push([w,v]);
+            adj[v].push([w,u])
+        }
+        
+      
+        
+        let pq = new MinHeap();
+        let inMST = new Array(V).fill(false);
+        let result = 0;
+        
+        pq.push(0,0);
+        
+        while(pq.size()){
+            let [w,n]  = pq.pop();
+           
+            if(inMST[n] === true) continue;
+            
+            result += w;
+            
+            inMST[n] = true;
+          
+            for(let nei of adj[n] || []){
+               
+               let [neiW, neiN] = nei;
+                
+                if(inMST[neiN] == false){
+                    pq.push(neiW, neiN)
+                }
+            }
+            
+        }
+        
+        return result
+        
+    }
+}
