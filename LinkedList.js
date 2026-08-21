@@ -519,3 +519,53 @@ var detectCycle = function(head) {
 
     return n1
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number}
+ */
+var pairSum = function(head) {
+    let slow = head;
+    let fast = head;
+
+    while(fast !== null && fast.next !== null){
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    let p1 = reverseLL(slow)
+    let p2 = head;
+
+    let max = -Infinity
+    while(p1 !== null && p2 !== null){
+        max = Math.max(max, p1.val + p2.val);
+        p1 = p1.next;
+        p2 = p2.next;
+    }
+
+    //console.log(max)
+
+    return max
+
+};
+
+function reverseLL(p){
+    let prev = null
+    let curr = p;
+
+    while(curr){
+        let next= curr.next;
+        curr.next = prev;
+        prev = curr; 
+        curr = next;
+    }
+
+    return prev
+}
