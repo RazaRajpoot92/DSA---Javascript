@@ -1453,3 +1453,27 @@ var maxNumberOfFamilies = function(n, reservedSeats) {
 
    return result;
 };
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var checkDivisibility = function(n) {
+    let nCopy = n
+    let sum = 0;
+    let product = 1;
+
+    while(nCopy>0){
+        let dig = nCopy%10;
+        sum += dig;
+        product *= dig;
+        nCopy = Math.floor(nCopy/10)
+    }
+
+    let totalSum = sum + product
+    
+    if((n % totalSum) === 0 ) return true;
+
+    return false
+
+};
