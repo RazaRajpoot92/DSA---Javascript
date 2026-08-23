@@ -1477,3 +1477,59 @@ var checkDivisibility = function(n) {
     return false
 
 };
+
+/**
+ * @param {string} num
+ * @return {boolean}
+ */
+/**
+ * @param {string} num
+ * @return {boolean}
+ */
+var sumGame = function(num) {
+    let n = num.length;
+
+    let leftKnownSum = 0;
+    let rightKnownSum = 0;
+
+    let leftQnMarkCount = 0;
+    let rightQnMarkCount = 0;
+
+    for (let i = 0; i < n; i++) {
+
+        if (num[i] === '?') {
+
+            if (i < n / 2) {
+                leftQnMarkCount++;
+            } else {
+                rightQnMarkCount++;
+            }
+
+        } else {
+
+            if (i < n / 2) {
+                leftKnownSum += Number(num[i]);
+            } else {
+                rightKnownSum += Number(num[i]);
+            }
+
+        }
+    }
+
+    let totalQnMarks = leftQnMarkCount + rightQnMarkCount;
+
+    
+    if (totalQnMarks % 2 === 1) {
+        return true;
+    }
+
+    let LEFT = 2 * leftKnownSum + 9 * leftQnMarkCount;
+    let RIGHT = 2 * rightKnownSum + 9 * rightQnMarkCount;
+
+    
+    if (LEFT === RIGHT) {
+        return false;
+    }
+
+    return true;
+};
