@@ -1395,13 +1395,13 @@ class DSU{
     
 }
 
-let V = 3
+// let V = 3
 
-let adj = {
-    0:[1,2],
-    1:[0,2],
-    2:[0,1]
-}
+// let adj = {
+//     0:[1,2],
+//     1:[0,2],
+//     2:[0,1]
+// }
 
 let dsu = new DSU(V)
 
@@ -1732,5 +1732,33 @@ class Solution {
         
         return result
         
+    }
+}
+
+// Kruskal Algorithm
+class Solution {
+    spanningTree(V, edges) {
+        // code here
+        let dsu = new DSU(V)
+        
+        edges.sort((a,b) => a[2] - b[2]);
+        let sum = 0;
+        
+        for(let edge of edges){
+            let u = edge[0];
+            let v = edge[1];
+            let w = edge[2];
+            
+            let u_parent = dsu.find(u);
+            let v_parent = dsu.find(v);
+            
+            if(u_parent != v_parent){
+                dsu.union(u,v);
+                sum += w
+            }
+        }
+        
+        return sum
+
     }
 }
