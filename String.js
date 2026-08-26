@@ -620,3 +620,47 @@ var validSequence = function(word1, word2) {
     
     return  j == m?  result : [];
 };
+
+var shortestBeautifulSubstring = function(s, k) {
+    let n = s.length;
+
+    let i = 0;
+    let count = 0;
+
+    let best = "";
+
+    for (let j = 0; j < n; j++) {
+
+        if (s[j] === "1") {
+            count++;
+        }
+
+        
+        while (count > k) {
+            if (s[i] === "1") {
+                count--;
+            }
+            i++;
+        }
+
+
+        if (count === k) {
+
+            while (s[i] === "0") {
+                i++;
+            }
+
+            let current = s.substring(i, j + 1);
+
+            if (
+                best === "" ||
+                current.length < best.length ||
+                (current.length === best.length && current < best)
+            ) {
+                best = current;
+            }
+        }
+    }
+
+    return best;
+};
