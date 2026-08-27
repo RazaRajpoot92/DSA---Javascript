@@ -1762,3 +1762,80 @@ class Solution {
 
     }
 }
+
+
+
+// Kosaraju's Algorithm
+class Solution {
+    kosaraju(V, edges) {
+        // code here
+        let adj = {};
+        let reverseAdj = {};
+        
+        for(let [u,v] of edges){
+            
+            if(adj[u] == undefined) adj[u] = [];
+            if(adj[v] == undefined) adj[v] = [];
+            
+            if(reverseAdj[u] == undefined) reverseAdj[u] = [];
+            if(reverseAdj[v] == undefined) reverseAdj[v] = [];
+            
+            adj[u].push(v)
+            
+            reverseAdj[v].push(u)
+        }
+        
+        // topo sort
+        
+        let stack =[];
+        let visited = new Array(V).fill(false);
+        
+        for(let i =0; i<V; i++){
+            
+            if(!visited[i]){
+                dfsFill(i, adj, visited, stack)
+            }
+        }
+        
+        // dfs with topo order (stored in stack)
+        
+        visited = new Array(V).fill(false);
+        let count = 0;
+        
+        while(stack.length){
+            let node = stack.pop();
+            
+            if(visited[node] == false){
+                dfs(node, reverseAdj, visited);
+                count++
+            }
+            
+            
+        }
+        
+        return count
+    }
+}
+
+function dfs(u, adj, visited){
+    visited[u] = true;
+    
+    for(let v of adj[u] || []){
+        if(visited[v] == false){
+            dfs(v, adj, visited)
+        }
+    }
+}
+
+
+function dfsFill(u, adj, visited, stack){
+    visited[u] = true;
+    
+    for(let v of adj[u] || []){
+        if(visited[v] == false){
+            dfsFill(v, adj, visited, stack)
+        }
+    }
+    
+    stack.push(u)
+}
