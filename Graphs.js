@@ -1839,3 +1839,44 @@ function dfsFill(u, adj, visited, stack){
     
     stack.push(u)
 }
+
+class DSU{
+    constructor(V){
+        this.parent = [];
+        this.size = [];
+        this.init(V)
+    }
+
+    init(V){
+        for(let i =0; i<V; i++){
+            this.parent.push(i);
+            this.size.push(1)
+        }
+    }
+
+    find(x){
+        if(x == this.parent[x]){
+            return x
+        }
+
+        return this.parent[x] = this.find(this.parent[x])
+    }
+
+    union(x,y){
+        let x_parent = this.find(x);
+        let y_parent = this.find(y);
+
+        if(x_parent == y_parent) return;
+
+        if(this.size[x_parent] > this.size[y_parent]){
+            this.parent[y_parent] = x_parent;
+            this.size[x_parent] += this.size[y_parent]
+        }else if(this.size[x_parent] < this.size[y_parent]){
+            this.parent[x_parent] = y_parent;
+            this.size[y_parent] += this.size[x_parent];
+        }else{
+            this.parent[x_parent] = y_parent;
+            this.size[y_parent] += this.size[x_parent]
+        }
+    }
+}
