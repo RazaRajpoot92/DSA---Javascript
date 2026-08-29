@@ -1550,3 +1550,48 @@ var missingMultiple = function(nums, k) {
 
     return multiple
 };
+
+/**
+ * @param {number[]} nums
+ * @param {number} limit
+ * @return {number[]}
+ */
+var lexicographicallySmallestArray = function(nums, limit) {
+    let n = nums.length;
+    
+    let sortedArr = [...nums];
+    
+    sortedArr.sort((a,b) => b - a)
+    
+    let group = 0;
+    let listMap = {};
+    listMap[group] = [sortedArr[0]];
+
+    let groupMap = {};
+    groupMap[sortedArr[0]] = group;
+
+    for(let i = 1; i<n; i++){
+        if(Math.abs(sortedArr[i] - sortedArr[i-1]) > limit){
+            group++;
+        }
+
+        if(listMap[group] == undefined) listMap[group] = []
+        
+        listMap[group].push(sortedArr[i])
+        groupMap[sortedArr[i]] = group;
+    }
+
+    let answer = new Array(n).fill(-1);
+
+    for(let i = 0; i<n; i++){
+        let num = nums[i];
+
+        let groupNo = groupMap[num];
+
+        let elem = listMap[groupNo].pop();
+
+        answer[i] = elem
+    }
+
+    return answer
+};
