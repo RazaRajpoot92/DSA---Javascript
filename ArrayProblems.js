@@ -1595,3 +1595,38 @@ var lexicographicallySmallestArray = function(nums, limit) {
 
     return answer
 };
+
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minimumDeletions = function(nums) {
+    let n = nums.length;
+
+    let minIdx = -1;
+    let min = Infinity
+    let max = -Infinity;
+    let maxIdx = -1;
+
+    for(let i =0; i<n; i++){
+        if(nums[i] < min){
+            min = nums[i];
+            minIdx = i;
+        }
+
+        if(nums[i] > max){
+            max = nums[i];
+            maxIdx = i;
+        }
+    }
+
+    let leftSide = Math.min(maxIdx, minIdx);
+    let rightSide = Math.max(maxIdx, minIdx);
+
+    let diffEnd = (leftSide+1) + (n - rightSide);
+    let left = rightSide + 1;
+    let right = n-leftSide;
+
+    return Math.min(diffEnd, left, right)
+};
