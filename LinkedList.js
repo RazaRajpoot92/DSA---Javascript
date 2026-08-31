@@ -569,3 +569,64 @@ function reverseLL(p){
 
     return prev
 }
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number[]}
+ */
+var nodesBetweenCriticalPoints = function(head) {
+    let len = 0;
+    let p = head
+    while(p){
+        len++;
+        p = p.next;
+    }
+
+    if(len == 2) return [-1,-1];
+
+    let prev = head;
+    let curr = head.next;
+    let next = head.next.next;
+    
+    let cPointsIdx = [];
+    let idx = 2
+    while(next){
+        let pVal = prev.val;
+        let cVal = curr.val;
+        let nVal = next.val;
+
+        if(pVal < cVal && nVal < cVal){
+    
+            cPointsIdx.push(idx)
+        }
+
+        if(pVal > cVal && nVal > cVal){
+        
+            cPointsIdx.push(idx)
+        }
+
+        prev = prev.next;
+        curr = curr.next;
+        next = next.next;
+        idx++
+    }
+
+    let cPointsLen = cPointsIdx.length;
+    if(cPointsLen < 2) return [-1, -1]
+
+    let maxDist = cPointsIdx[cPointsLen - 1] - cPointsIdx[0];
+    let minDist = Infinity;
+
+    for(let i = 1; i<cPointsLen; i++){
+        minDist = Math.min(minDist, cPointsIdx[i] - cPointsIdx[i-1]);
+    }
+
+    return [minDist, maxDist]
+};
