@@ -1880,3 +1880,260 @@ class DSU{
         }
     }
 }
+
+/**
+ * @param {string[]} classroom
+ * @param {number} energy
+ * @return {number}
+ */
+var minMoves = function(classroom, energy) {
+
+    const rows = classroom.length;
+    const cols = classroom[0].length;
+    const totalCells = rows * cols;
+
+    let start = -1;
+
+    // Give every litter an ID: 0, 1, 2, ...
+    let litterId = new Int8Array(totalCells);
+    litterId.fill(-1);
+
+    let litterCount = 0;
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+
+            let pos = r * cols + c;
+            let ch = classroom[r][c];
+
+            if (ch === 'S') {
+                start = pos;
+            }
+
+            if (ch === 'L') {
+                litterId[pos] = litterCount++;
+            }
+        }
+    }
+
+    const allMask = (1 << litterCount) - 1;
+    const maskSize = 1 << litterCount;
+
+    const stateSize = totalCells * (energy + 1) * maskSize;
+
+    const visited = new Uint8Array(stateSize);
+
+    function encode(pos, currEnergy, mask) {
+        return ((pos * (energy + 1) + currEnergy) * maskSize) + mask;
+    }
+
+    function getMask(state) {
+        return state % maskSize;
+    }
+
+    function getTemp(state) {
+        return Math.floor(state / maskSize);
+    }
+
+    function getEnergy(state) {
+        return getTemp(state) % (energy + 1);
+    }
+
+    function getPos(state) {
+        return Math.floor(getTemp(state) / (energy + 1));
+    }
+
+    const queue = new Int32Array(stateSize);
+
+    let head = 0;
+    let tail = 0;
+
+    let startState = encode(start, energy, 0);
+
+    queue[tail++] = startState;
+    visited[startState] = 1;
+
+    let moves = 0;
+
+    while (head < tail) {
+
+        
+        let levelEnd = tail;
+
+        while (head < levelEnd) {
+
+            let state = queue[head++];
+
+            let pos = getPos(state);
+            let currEnergy = getEnergy(state);
+            let mask = getMask(state);
+
+            if (mask === allMask) {
+                return moves;
+            }
+
+            if (currEnergy === 0) {
+                continue;
+            }
+
+            let r = Math.floor(pos / cols);
+            let c = pos % cols;
+
+            
+            if (r + 1 < rows) {
+                let next = pos + cols;
+
+                if (classroom[r + 1][c] !== 'X') {
+                    if (process(next, currEnergy, mask)) {
+                        return moves + 1;
+                    }
+                }
+            }
+
+            
+            if (r > 0) {
+                let next = pos - cols;
+
+                if (classroom[r - 1][c] !== 'X') {
+                    if (process(next, currEnergy, mask)) {
+                        return moves + 1;
+                    }
+                }
+            }
+
+            
+            if (c + 1 < cols) {
+                let next = pos + 1;
+
+                if (classroom[r][c + 1] !== 'X') {
+                    if (process(next, currEnergy, mask)) {
+                        return moves + 1;
+                    }
+                }
+            }
+
+            
+            if (c > 0) {
+                let next = pos - 1;
+
+                if (classroom[r][c - 1] !== 'X') {
+                    if (process(next, currEnergy, mask)) {
+                        return moves + 1;
+                    }
+                }
+            }
+        }
+
+        moves++;
+    }
+
+    return -1;
+
+
+    function process(nextPos, currEnergy, mask) {
+
+        let newEnergy = currEnergy - 1;
+        let newMask = mask;
+
+        let id = litterId[nextPos];
+
+        if (id !== -1) {
+            newMask |= (1 << id);
+        }
+
+        let r = Math.floor(nextPos / cols);
+        let c = nextPos % cols;
+
+        if (classroom[r][c] === 'R') {
+            newEnergy = energy;
+        }
+
+        let newState = encode(nextPos, newEnergy, newMask);
+
+        if (visited[newState]) {
+            return false;
+        }
+
+        visited[newState] = 1;
+        queue[tail++] = newState;
+
+        return newMask === allMask;
+    }
+};
+
+// var minMoves = function (classroom, energy) {
+//     let n = classroom.length;
+//     let m = classroom[0].length;
+
+
+//     let grid = Array.from({ length: n }, () => new Array(m));
+//     let visited = Array.from({length:n}, ()=> new Array(m).fill(false));
+//     let sI = -1;
+//     let sJ = -1;
+//     let litCount = 0;
+
+//     for (let i = 0; i < n; i++) {
+//         for (let j = 0; j < m; j++) {
+
+//             if (classroom[i][j] == "S") {
+//                 sI = i;
+//                 sJ = j;
+//             }
+
+//             if (classroom[i][j] == "L") litCount++
+//             grid[i][j] = classroom[i][j]
+//         }
+//     }
+
+//     let directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+//     let ans = -1
+//     let origEnergy = energy
+//     let origLitCount = litCount
+//     function solve(i,j, grid, visited, litCount, moves, energy){
+//         if(litCount == 0){
+//             console.log(moves, energy)
+//            // console.log(energy)
+//             if(ans == -1) ans = moves
+//             litCount = origLitCount;
+//             return 
+//         }
+
+//         if(energy == 0){
+//             return;
+//         }
+
+        
+
+//         visited[i][j] = true;
+
+//         for(let dir of directions){
+//             let i_ = i + dir[0];
+//             let j_ = j + dir[1];
+
+            
+
+//             if(valid(i_, j_, n, m) && grid[i_][j_] !== "X" && visited[i_][j_] == false){
+//                 console.log(grid[i_][j_], i_, j_, visited[i_][j_])
+//                 if(grid[i_][j_] == "L") litCount--
+
+//                 if(grid[i_][j_] == "R"){
+//                     energy = origEnergy
+//                 }else{
+//                     energy--
+//                 }
+                
+//                 solve(i_, j_, grid, visited, litCount, moves+1, energy)
+//             }   
+//         }
+
+//         visited[i][j] = false;
+//     }
+
+//     solve(sI, sJ, grid, visited, litCount, 0, energy)
+
+//     return ans
+// };
+
+// function valid(i, j, n, m){
+//     return i>=0 && i<n && j>=0 && j<m
+// }
