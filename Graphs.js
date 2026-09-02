@@ -2137,3 +2137,71 @@ var minMoves = function(classroom, energy) {
 // function valid(i, j, n, m){
 //     return i>=0 && i<n && j>=0 && j<m
 // }
+
+
+/**
+ * @param {number} V
+ * @param {number[][]} Adj
+ * @return {number}
+ */
+
+class Solution {
+
+    isEulerCircuit(V, Adj) {
+        
+        
+        
+        if(isConnected(V, Adj) == false) return 0;
+        
+        let oddCount = 0;
+        
+        for(let i = 0; i<V; i++){
+            
+            if(Adj[i].length % 2 == 1){
+                oddCount++
+            }
+        }
+        
+        if(oddCount > 2) return 0;
+        if(oddCount == 2) return 1;
+        
+        return 2
+    }
+}
+
+
+function isConnected(V, listAdj){
+    
+    let nonZeroNode = -1;
+    
+    for(let i =0; i<V; i++){
+        if(listAdj[i].length > 0){
+            nonZeroNode = i;
+            break;
+        }
+    }
+    
+    let visited = new Array(V).fill(false);
+    
+    dfs(nonZeroNode, listAdj, visited);
+    
+    for(let i=0; i<V; i++){
+        if(visited[i] == false && listAdj[i].length > 0) return false;
+    }
+    
+    
+    return true;
+}
+
+
+function dfs(u, listAdj, visited){
+    visited[u] = true;
+    
+    for(let v of listAdj[u] || []){
+        if(visited[v] == false){
+            dfs(v, listAdj, visited)
+        }
+    }
+}
+
+
