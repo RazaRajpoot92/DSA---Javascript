@@ -1630,3 +1630,32 @@ var minimumDeletions = function(nums) {
 
     return Math.min(diffEnd, left, right)
 };
+
+
+var uniformArray = function(nums1) {
+    let n = nums1.length;
+
+    let oddCount = 0;
+    let evenCount = 0;
+    let minOdd = Infinity;
+
+    for(let num of nums1){
+        if(num % 2 == 0){
+            evenCount++
+        }else{
+            oddCount++
+            minOdd = Math.min(num, minOdd)
+        }
+    }
+
+    if(evenCount == n || oddCount == n) return true;
+
+
+    for(let num of nums1){
+        if(num % 2 == 0){
+            if(num < minOdd) return false;
+        }
+    }
+
+    return true;
+};
