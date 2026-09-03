@@ -2203,5 +2203,84 @@ function dfs(u, listAdj, visited){
         }
     }
 }
+var validArrangement = function(pairs) {
+    let n = pairs.length;
+    let adj = {};
+    let inDegree = {}
+    let outDegree = {}
+    let nodes = new Set()
+
+    for(let [u,v] of pairs){
+        if(adj[u] == undefined) adj[u] = [];
+
+        if(inDegree[v] === undefined) inDegree[v] = 0;
+        if(inDegree[u] === undefined) inDegree[u] = 0;
+
+        if(outDegree[u] === undefined) outDegree[u] = 0;
+        if(outDegree[v] === undefined) outDegree[v] = 0;
+
+        nodes.add(u)
+        nodes.add(v)
+
+        adj[u].push(v);
+        inDegree[v]++
+        outDegree[u]++
+    }
+
+    let startNode = pairs[0][0];
+    
+    for(let node of nodes){
+        
+        if(outDegree[node] - inDegree[node] == 1) {
+            startNode = node;
+            break;
+        }
+    }
+
+    let path = [];
+
+    let st = [];
+
+    st.push(startNode);
+
+    while(st.length){
+        let l = st.length - 1;
+        let top = st[l];
+
+        if( adj[top] !== undefined && adj[top].length !== 0){
+            let nbr = adj[top].pop()
+            st.push(nbr);
+        }else{
+            path.push(top);
+            st.pop();
+        }
+    }
+
+    reverse(path);
+
+    let result = [];
+
+    for(let i = 0; i<path.length - 1; i++){
+        result.push([path[i], path[i+1]])
+    }
+
+    return result;
+
+};
+
+function reverse(path){
+    let i = 0;
+    let j = path.length - 1;
+
+    while(i<j){
+        let temp = path[i];
+        path[i] = path[j];
+        path[j] = temp;
+
+        i++;
+        j--;
+    }
+}
+
 
 
