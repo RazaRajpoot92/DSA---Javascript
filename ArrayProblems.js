@@ -1659,3 +1659,38 @@ var uniformArray = function(nums1) {
 
     return true;
 };
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var firstStableIndex = function(nums, k) {
+    let n  = nums.length;
+
+    let maxArr = new Array(n);
+    maxArr[0] = nums[0];
+
+    for(let i = 1; i<n; i++){
+        maxArr[i] = Math.max(maxArr[i-1], nums[i])
+    }
+
+    let minArr = new Array(n);
+    minArr[n-1] = nums[n-1];
+
+    for(let i = n-2; i>=0; i--){
+        minArr[i] = Math.min(minArr[i+1], nums[i])
+    }
+
+    let minIdx = -1;
+
+    for(let i =0; i<n; i++){
+
+        if(maxArr[i] - minArr[i] <= k){
+            minIdx = i;
+            break;
+        }
+    }
+
+    return minIdx;
+};
