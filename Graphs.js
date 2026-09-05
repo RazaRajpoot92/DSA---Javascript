@@ -2282,5 +2282,64 @@ function reverse(path){
     }
 }
 
+let edges = [
+    [0, 1],
+    [1, 2],
+    [1, 3],
+    [3, 4],
+    [4, 5],
+    [4, 6],
+    [6, 7]
+];
+let V = 8;
+let adj = {};
+
+for(let [u,v] of edges){
+  if(adj[u] == undefined) adj[u] = [];
+  if(adj[v] == undefined) adj[v] = [];
+
+  adj[u].push(v);
+  adj[v].push(u)
+}
+
+console.log(adj)
+
+let A = BFS(0, adj)[0];
+let [B, level] = BFS(A, adj);
+
+console.log(A,B)
+console.log(level)
+
+function BFS(start, adj){
+
+  let visited = new Array(V).fill(false);
+  visited[start] = true;
+  let q = [];
+  q.push(start);
+  
+  l = -1;
+  fn = -1;
+  
+  while(q.length){
+    let len = q.length;
+  
+    while(len--){
+      let n = q.shift();
+      fn = n;
+  
+      for(let nei of adj[n]){
+        if(visited[nei] === false){
+          visited[nei] = true;
+          q.push(nei)
+        }
+      }
+    }
+  
+    l++
+  }
+
+  return [fn, l]
+}
+
 
 

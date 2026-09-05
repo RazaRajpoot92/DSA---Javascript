@@ -1694,3 +1694,4 @@ var firstStableIndex = function(nums, k) {
 
     return minIdx;
 };
+
