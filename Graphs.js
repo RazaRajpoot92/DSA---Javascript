@@ -2342,4 +2342,80 @@ function BFS(start, adj){
 }
 
 
+/**
+ * @param {number[][]} edges1
+ * @param {number[][]} edges2
+ * @return {number}
+ */
+var minimumDiameterAfterMerge = function(edges1, edges2) {
+    
+    let V1 = edges1.length+1;
+    let V2 = edges2.length+1;
+
+    let adj1 = {};
+    let adj2 = {};
+
+    for(let [u,v] of edges1){
+
+        if(adj1[u] == undefined) adj1[u] = [];
+        if(adj1[v] == undefined) adj1[v] = [];
+
+        adj1[u].push(v);
+        adj1[v].push(u);
+    }
+
+    for(let [u,v] of edges2){
+        if(adj2[u] == undefined) adj2[u] = [];
+        if(adj2[v] == undefined) adj2[v] = [];
+
+        adj2[u].push(v);
+        adj2[v].push(u);
+    }
+
+    let [A] = BFS(0, adj1, V1)
+    let [B, dis1] = BFS(A, adj1, V1)
+    
+    let [C] = BFS(0, adj2, V2);
+    let [D, dis2] = BFS(C, adj2, V2);
+
+
+    let combine = Math.floor((dis1 + 1) / 2) + Math.floor((dis2 + 1) / 2) + 1;
+
+    return Math.max(dis1, dis2, combine);
+};
+
+
+function BFS(s, adj, V){
+
+    let visited = new Array(V).fill(false);
+    let q = [];
+    q.push(s);
+    visited[s] = true;
+    
+    let fn = -1;
+    let level = 0;
+
+    while(q.length){
+        let len = q.length;
+
+        while(len--){
+            let node = q.shift();
+            fn = node;
+
+            for(let nei of adj[node] || []){
+                if(visited[nei] === false){
+                    visited[nei] = true;
+                    q.push(nei)
+                }
+            }
+        }
+        if(q.length !== 0){
+            level++
+        } 
+    }
+
+    return [fn, level]
+}
+
+
 
