@@ -1695,3 +1695,20 @@ var firstStableIndex = function(nums, k) {
     return minIdx;
 };
 
+let i = 0;
+let j = 0;
+let sum = 0;
+
+while (j < nums.length) {
+    sum += nums[j];
+
+    while (sum >= target) {
+        let s = j - i + 1;
+        size.push(s);
+
+        sum -= nums[i];
+        i++;
+    }
+
+    j++;
+}
